@@ -7,58 +7,135 @@
 ![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-success)
 
 ---
-
-## 🎓 Contexto
-
-Projeto desenvolvido como parte da **Formação AWS – Ciclo 3**, com o objetivo de aplicar conceitos de:
-
-- Infraestrutura como Código
-- Arquitetura em camadas
-- Segurança básica em nuvem
-- Provisionamento automatizado
+Perfeito 👩‍💻
+Segue o **README reestruturado formalmente no modelo de engenharia**, com organização profissional e linguagem mais executiva.
 
 ---
 
-# 🎯 Objetivo da POC
+# 🚀 POC – n8n na AWS com Terraform
 
-Implementar uma arquitetura segura para execução do **n8n** na AWS, utilizando Terraform para provisionamento completo da infraestrutura.
-
----
-
-# 🧠 Conceito Arquitetural
-
-A arquitetura segue o modelo **2-Tier (duas camadas)**:
-
-- Camada Pública → Load Balancer
-- Camada Privada → EC2 rodando n8n
-
-Isso garante:
-
-✅ Separação de responsabilidades  
-✅ Redução de superfície de ataque  
-✅ Organização da infraestrutura  
-✅ Base para escalabilidade futura  
+Arquitetura 2-Tier | Infraestrutura como Código | Segurança Básica em Cloud
 
 ---
 
-# 🏗️ Arquitetura Implementada
+# 1️⃣ Contexto
 
-## ☁️ Serviços AWS Utilizados
+Esta Prova de Conceito (POC) foi desenvolvida como parte da **Formação AWS – Ciclo 3**, com foco na aplicação prática de conceitos fundamentais de Arquitetura em Nuvem e Infraestrutura como Código.
 
-- VPC customizada
-- Subnet Pública
-- Subnet Privada
-- Internet Gateway
-- Application Load Balancer (ALB)
-- Target Group
-- EC2 (Amazon Linux 2)
-- IAM Role
-- AWS Systems Manager (SSM)
-- Security Groups
+O projeto visa consolidar conhecimentos em:
+
+* Infraestrutura como Código (IaC) com Terraform
+* Arquitetura em Camadas (2-Tier)
+* Segurança básica em ambientes AWS
+* Provisionamento automatizado
+* Containerização com Docker
+
+A POC simula um cenário real de implantação de aplicação web segura em ambiente cloud.
 
 ---
 
-# 🌐 Fluxo da Aplicação
+# 2️⃣ Objetivo
+
+Implementar uma arquitetura segura e organizada para execução do **n8n** na AWS, utilizando Terraform para provisionamento completo da infraestrutura.
+
+### Objetivos Específicos
+
+* Provisionar infraestrutura AWS de forma automatizada
+* Implementar arquitetura 2-Tier (ALB + EC2 privada)
+* Garantir isolamento da instância de aplicação
+* Aplicar boas práticas iniciais de segurança
+* Permitir acesso administrativo seguro via SSM
+
+---
+
+# 3️⃣ Restrições
+
+Durante o desenvolvimento da POC, foram adotadas as seguintes restrições técnicas e arquiteturais:
+
+### 🔐 Segurança
+
+* EC2 sem IP público
+* Porta 22 (SSH) não exposta
+* Acesso administrativo exclusivamente via AWS Systems Manager (SSM)
+* Security Group da EC2 aceita tráfego apenas do Load Balancer
+
+### 🌐 Rede
+
+* Arquitetura 2-Tier obrigatória
+* Separação entre subnet pública e privada
+* Subnet privada inicialmente sem NAT Gateway (limitação conhecida)
+
+### ⚙️ Operacionais
+
+* Provisionamento 100% via Terraform
+* Uso de Amazon Linux 2
+* Deploy da aplicação via Docker
+
+---
+
+# 4️⃣ Critérios de Qualidade
+
+A POC foi considerada bem-sucedida quando atendeu aos seguintes critérios:
+
+### 🏗️ Arquitetura
+
+* Separação clara entre camada pública e privada
+* Implementação correta do fluxo: Internet → ALB → EC2
+* Organização modular dos recursos Terraform
+
+### 🔐 Segurança
+
+* Redução da superfície de ataque
+* Instância protegida em subnet privada
+* Acesso administrativo seguro sem SSH
+
+### ⚙️ Engenharia
+
+* Infraestrutura reprodutível via `terraform init / plan / apply`
+* Código organizado por responsabilidade (network, security, ec2, alb)
+* IAM Role corretamente configurada para SSM
+
+### 📈 Boas Práticas
+
+* Uso de Application Load Balancer
+* Health Check configurado
+* Base pronta para futura escalabilidade
+
+---
+
+# 5️⃣ Entregáveis
+
+Os seguintes artefatos compõem o entregável da POC:
+
+## 📂 Código Terraform
+
+* main.tf
+* variables.tf
+* terraform.tfvars
+* network.tf
+* security.tf
+* ec2.tf
+* alb.tf
+* outputs.tf
+
+## ☁️ Infraestrutura Provisionada
+
+* VPC customizada
+* Subnet pública e privada
+* Internet Gateway
+* Application Load Balancer
+* Target Group
+* EC2 privada executando n8n via Docker
+* IAM Role com acesso ao SSM
+* Security Groups configurados
+
+## 🚀 Resultado Esperado
+
+Aplicação n8n acessível via Load Balancer (porta 80), com instância protegida em subnet privada e sem exposição direta à internet.
+
+---
+
+# 📊 Arquitetura Implementada
 
 Internet
 ↓
@@ -72,82 +149,19 @@ Docker
 ↓
 n8n
 
+---
+
+# 🔄 Próximas Evoluções
+
+* Implementação de NAT Gateway
+* Migração para HTTPS com ACM
+* Implementação de Auto Scaling Group
+* Modularização completa do Terraform
+* Monitoramento com CloudWatch
 
 ---
 
-# 🔐 Estratégia de Segurança
-
-- ❌ EC2 sem IP público
-- ❌ Porta 22 (SSH) não exposta
-- ✅ Acesso administrativo via Session Manager (SSM)
-- ✅ Security Group da EC2 aceita tráfego apenas do ALB
-- ✅ Separação entre subnet pública e privada
-
----
-
-# 📂 Estrutura do Projeto
-
-├── main.tf
-├── variables.tf
-├── terraform.tfvars
-├── network.tf
-├── security.tf
-├── ec2.tf
-├── alb.tf
-├── outputs.tf
-
----
-
-# ⚙️ Como Executar
-
-### 1️⃣ Inicializar Terraform
-
-```bash
-1. terraform init
-2. terraform plan
-3. terraform apply
-
-📊 Aprendizados Aplicados
-
-Durante a construção da POC foram aplicados os seguintes conceitos:
-
-Criação de VPC customizada
-
-Separação de subnets
-
-Configuração de Security Groups
-
-Uso de IAM Role para SSM
-
-Deploy automatizado via Terraform
-
-Containerização com Docker
-
-Integração com Application Load Balancer
-
-⚠️ Pontos de Atenção
-
-Subnet privada necessita NAT Gateway para acesso externo
-
-Health check do ALB deve estar corretamente configurado
-
-IAM Role é obrigatória para funcionamento do SSM
-
-Monitorar custos após provisionamento
-
-🚀 Próximas Evoluções
-
-Implementar NAT Gateway
-
-Migrar para HTTPS com ACM
-
-Criar Auto Scaling Group
-
-Modularizar Terraform
-
-Implementar monitoramento com CloudWatch
-
-🎓 Conclusão
+# 🎓 Conclusão
 
 Esta POC demonstra aplicação prática de:
 
@@ -155,10 +169,12 @@ Esta POC demonstra aplicação prática de:
 ✔ Arquitetura em Camadas
 ✔ Segurança básica em Cloud
 ✔ Provisionamento automatizado
-✔ Boas práticas iniciais AWS
+✔ Estrutura preparada para evolução arquitetural
 
-👩‍💻 Autora
+---
 
-Ana Paula
+👩‍💻 **Autora:** Ana Paula
 Formação AWS – Ciclo 3
+
+---
 
