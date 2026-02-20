@@ -445,3 +445,13 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# Ignorar arquivos temporários
+*.tmp
+*.swp
+*.save
+
+# Ignorar diretórios específicos
+VirtualBox/
+docker/
+cache/
