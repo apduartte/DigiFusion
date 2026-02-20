@@ -7,12 +7,6 @@
 ![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-success)
 
 ---
-Perfeito 👩‍💻
-Segue o **README reestruturado formalmente no modelo de engenharia**, com organização profissional e linguagem mais executiva.
-
----
-
-# 🚀 POC – n8n na AWS com Terraform
 
 Arquitetura 2-Tier | Infraestrutura como Código | Segurança Básica em Cloud
 
