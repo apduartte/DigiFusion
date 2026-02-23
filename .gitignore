@@ -439,6 +439,18 @@ terraform.rc
 # Sensitive variable files
 *.tfvars
 *.tfvars.json
+*.tfstate
+*.tfstate.json
+*.tfstate.backup
+*.tfstate.backup.json
+*.tfplantfvars
+*.tfplantfvars.json
+*.tfstate
+*.tfstate.json
+*.tfstate.backup
+*.tfstate.backup.json
+*.tfplan
+*.tfplan.json
 
 # Override files
 override.tf
