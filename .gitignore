@@ -420,45 +420,29 @@ FodyWeavers.xsd
 # ================================
 # Terraform
 # ================================
-
-# Terraform local state
+# Arquivos de estado do Terraform
 *.tfstate
-*.tfstate.*
-crash.log
+*.tfstate.backup
 
-# Terraform plan output
-*.tfplan
+# Arquivo de plano do Terraform
+tfplan
 
-# Terraform directory
+# Diretório de cache do Terraform
 .terraform/
 
-# Terraform CLI config files
-.terraformrc
-terraform.rc
-
-# Sensitive variable files
+# Variáveis sensíveis
 *.tfvars
 *.tfvars.json
-*.tfstate
-*.tfstate.json
-*.tfstate.backup
-*.tfstate.backup.json
-*.tfplantfvars
-*.tfplantfvars.json
-*.tfstate
-*.tfstate.json
-*.tfstate.backup
-*.tfstate.backup.json
-*.tfplan
-*.tfplan.json
 
-# Override files
+# Logs e arquivos temporários
+*.log
+*.tmp
+
+# Arquivos locais de override
 override.tf
 override.tf.json
 *_override.tf
-*_override.tf.json
-
-# Ignorar arquivos temporários
+*_override.tf.json# Ignorar arquivos temporários
 *.tmp
 *.swp
 *.save
@@ -467,3 +451,4 @@ override.tf.json
 VirtualBox/
 docker/
 cache/
+
