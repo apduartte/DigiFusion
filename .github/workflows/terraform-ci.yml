@@ -8,6 +8,7 @@ on:
   pull_request:
     paths:
       - "infra/terraform/**"
+      - ".github/workflows/terraform-ci.yml"
 
 permissions:
   contents: read
@@ -15,13 +16,15 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: infra/terraform
+
+    env:
+      TF_ROOT: infra/terraform/envs/model1
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -29,13 +32,13 @@ jobs:
           terraform_version: 1.6.6
 
       - name: Terraform fmt
-        run: terraform fmt -check -recursive
+        run: terraform -chdir=infra/terraform fmt -check -recursive
 
       - name: Terraform init (CI sem backend remoto)
-        run: terraform init -backend=false
+        run: terraform -chdir=${{ env.TF_ROOT }} init -backend=false -input=false
 
       - name: Terraform validate
-        run: terraform validate
+        run: terraform -chdir=${{ env.TF_ROOT }} validate
 
       - name: Terraform plan (dry-run)
-        run: terraform plan -input=false -lock=false
+        run: terraform -chdir=${{ env.TF_ROOT }} plan -input=false -lock=false
