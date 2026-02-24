@@ -416,3 +416,39 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# ================================
+# Terraform
+# ================================
+# Arquivos de estado do Terraform
+*.tfstate
+*.tfstate.backup
+
+# Arquivo de plano do Terraform
+tfplan
+
+# Diretório de cache do Terraform
+.terraform/
+
+# Variáveis sensíveis
+*.tfvars
+*.tfvars.json
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+
+# Arquivos locais de override
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json# Ignorar arquivos temporários
+*.tmp
+*.swp
+*.save
+
+# Ignorar diretórios específicos
+VirtualBox/
+docker/
+cache/
+

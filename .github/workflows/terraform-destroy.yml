@@ -1,0 +1,36 @@
+name: Terraform Destroy
+
+on:
+  workflow_dispatch:   # execução manual
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infra/terraform/envs/model1
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.7.0
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform destroy
+        run: terraform destroy -auto-approve
+
+      - name: Verificação de recursos restantes
+        run: |
+          if [ -z "$(terraform state list)" ]; then
+            echo "✅ Nenhum recurso ativo no estado Terraform."
+          else
+            echo "⚠️ Ainda existem recursos ativos:"
+            terraform state list
+            exit 1
+          fi
