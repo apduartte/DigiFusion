@@ -7,174 +7,249 @@
 ![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-success)
 
 ---
-Perfeito 👩‍💻
-Segue o **README reestruturado formalmente no modelo de engenharia**, com organização profissional e linguagem mais executiva.
+# 🚀 n8n on AWS | Cloud Architecture | Terraform | HTTPS | DevOps Project
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Cloud-AWS-orange?style=for-the-badge&logo=amazonaws" />
+  <img src="https://img.shields.io/badge/IaC-Terraform-purple?style=for-the-badge&logo=terraform" />
+  <img src="https://img.shields.io/badge/CDN-CloudFront-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Security-HTTPS-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/DevOps-Production--Ready-success?style=for-the-badge" />
+</p>
 
 ---
 
-# 🚀 POC – n8n na AWS com Terraform
+## 📌 Overview
 
-Arquitetura 2-Tier | Infraestrutura como Código | Segurança Básica em Cloud
+This project demonstrates a **cloud-native architecture on AWS** evolving from a **Single Instance deployment** to a **scalable, secure, and production-ready architecture**.
 
----
+It highlights:
 
-# 1️⃣ Contexto
-
-Esta Prova de Conceito (POC) foi desenvolvida como parte da **Formação AWS – Ciclo 3**, com foco na aplicação prática de conceitos fundamentais de Arquitetura em Nuvem e Infraestrutura como Código.
-
-O projeto visa consolidar conhecimentos em:
-
-* Infraestrutura como Código (IaC) com Terraform
-* Arquitetura em Camadas (2-Tier)
-* Segurança básica em ambientes AWS
-* Provisionamento automatizado
-* Containerização com Docker
-
-A POC simula um cenário real de implantação de aplicação web segura em ambiente cloud.
+* Infrastructure as Code (Terraform)
+* Secure delivery with HTTPS (ACM)
+* Global content distribution (CloudFront)
+* DNS management (Route53)
+* DevOps and FinOps best practices
 
 ---
 
-# 2️⃣ Objetivo
+## 🏗️ AWS Architecture (Professional View)
 
-Implementar uma arquitetura segura e organizada para execução do **n8n** na AWS, utilizando Terraform para provisionamento completo da infraestrutura.
+```mermaid
+graph TD
 
-### Objetivos Específicos
+User --> CloudFront
+CloudFront --> ALB
+ALB --> EC2
+EC2 --> Docker
+Docker --> n8n
+n8n --> PostgreSQL
 
-* Provisionar infraestrutura AWS de forma automatizada
-* Implementar arquitetura 2-Tier (ALB + EC2 privada)
-* Garantir isolamento da instância de aplicação
-* Aplicar boas práticas iniciais de segurança
-* Permitir acesso administrativo seguro via SSM
-
----
-
-# 3️⃣ Restrições
-
-Durante o desenvolvimento da POC, foram adotadas as seguintes restrições técnicas e arquiteturais:
-
-### 🔐 Segurança
-
-* EC2 sem IP público
-* Porta 22 (SSH) não exposta
-* Acesso administrativo exclusivamente via AWS Systems Manager (SSM)
-* Security Group da EC2 aceita tráfego apenas do Load Balancer
-
-### 🌐 Rede
-
-* Arquitetura 2-Tier obrigatória
-* Separação entre subnet pública e privada
-* Subnet privada inicialmente sem NAT Gateway (limitação conhecida)
-
-### ⚙️ Operacionais
-
-* Provisionamento 100% via Terraform
-* Uso de Amazon Linux 2
-* Deploy da aplicação via Docker
+Route53 --> CloudFront
+ACM --> CloudFront
+```
 
 ---
 
-# 4️⃣ Critérios de Qualidade
+### 🔎 Architecture Explanation
 
-A POC foi considerada bem-sucedida quando atendeu aos seguintes critérios:
-
-### 🏗️ Arquitetura
-
-* Separação clara entre camada pública e privada
-* Implementação correta do fluxo: Internet → ALB → EC2
-* Organização modular dos recursos Terraform
-
-### 🔐 Segurança
-
-* Redução da superfície de ataque
-* Instância protegida em subnet privada
-* Acesso administrativo seguro sem SSH
-
-### ⚙️ Engenharia
-
-* Infraestrutura reprodutível via `terraform init / plan / apply`
-* Código organizado por responsabilidade (network, security, ec2, alb)
-* IAM Role corretamente configurada para SSM
-
-### 📈 Boas Práticas
-
-* Uso de Application Load Balancer
-* Health Check configurado
-* Base pronta para futura escalabilidade
+| Layer     | Service    | Responsibility          |
+| --------- | ---------- | ----------------------- |
+| Edge      | CloudFront | CDN + HTTPS termination |
+| DNS       | Route53    | Domain routing          |
+| Security  | ACM        | SSL/TLS certificate     |
+| Compute   | EC2        | Application host        |
+| Container | Docker     | Runtime                 |
+| App       | n8n        | Automation workflows    |
+| Data      | PostgreSQL | Persistence             |
 
 ---
 
-# 5️⃣ Entregáveis
+## 🔐 HTTPS + CDN (CloudFront + ACM)
 
-Os seguintes artefatos compõem o entregável da POC:
+### 🎯 Objective
 
-## 📂 Código Terraform
+Deliver the application securely using HTTPS and globally optimized performance.
 
-* main.tf
-* variables.tf
-* terraform.tfvars
-* network.tf
-* security.tf
-* ec2.tf
-* alb.tf
-* outputs.tf
+### 📌 Key Decisions
 
-## ☁️ Infraestrutura Provisionada
-
-* VPC customizada
-* Subnet pública e privada
-* Internet Gateway
-* Application Load Balancer
-* Target Group
-* EC2 privada executando n8n via Docker
-* IAM Role com acesso ao SSM
-* Security Groups configurados
-
-## 🚀 Resultado Esperado
-
-Aplicação n8n acessível via Load Balancer (porta 80), com instância protegida em subnet privada e sem exposição direta à internet.
+* ACM certificate MUST be in `us-east-1` (CloudFront requirement)
+* CloudFront used as entry point (edge layer)
+* Route53 manages domain resolution
 
 ---
 
-# 📊 Arquitetura Implementada
+## ⚙️ Terraform (CloudFront + ACM + Route53)
 
-Internet
-↓
-ALB (HTTP 80)
-↓
-Target Group
-↓
-EC2 Privada (porta 5678)
-↓
-Docker
-↓
-n8n
+### 📁 Example Structure
 
----
-
-# 🔄 Próximas Evoluções
-
-* Implementação de NAT Gateway
-* Migração para HTTPS com ACM
-* Implementação de Auto Scaling Group
-* Modularização completa do Terraform
-* Monitoramento com CloudWatch
+```
+terraform/
+ ├── modules/
+ │    ├── acm/
+ │    ├── cloudfront/
+ │    └── route53/
+ └── environments/
+      └── dev/
+```
 
 ---
 
-# 🎓 Conclusão
+### 🧩 ACM (SSL Certificate)
 
-Esta POC demonstra aplicação prática de:
+```hcl
+resource "aws_acm_certificate" "cert" {
+  domain_name       = "n8n.seudominio.com"
+  validation_method = "DNS"
 
-✔ Infraestrutura como Código
-✔ Arquitetura em Camadas
-✔ Segurança básica em Cloud
-✔ Provisionamento automatizado
-✔ Estrutura preparada para evolução arquitetural
-
----
-
-👩‍💻 **Autora:** Ana Paula
-Formação AWS – Ciclo 3
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+```
 
 ---
 
+### 🌍 Route53 (DNS Validation)
+
+```hcl
+resource "aws_route53_record" "cert_validation" {
+  zone_id = "ZXXXXXXXX"
+  name    = aws_acm_certificate.cert.domain_validation_options[0].resource_record_name
+  type    = aws_acm_certificate.cert.domain_validation_options[0].resource_record_type
+  records = [aws_acm_certificate.cert.domain_validation_options[0].resource_record_value]
+  ttl     = 60
+}
+```
+
+---
+
+### 🚀 CloudFront (CDN + HTTPS)
+
+```hcl
+resource "aws_cloudfront_distribution" "cdn" {
+  enabled = true
+
+  origin {
+    domain_name = "seu-alb.amazonaws.com"
+    origin_id   = "alb-origin"
+  }
+
+  default_cache_behavior {
+    target_origin_id       = "alb-origin"
+    viewer_protocol_policy = "redirect-to-https"
+  }
+
+  viewer_certificate {
+    acm_certificate_arn = aws_acm_certificate.cert.arn
+    ssl_support_method  = "sni-only"
+  }
+}
+```
+
+---
+
+## ⚖️ Arquitetura Comparativa (Para Apresentação)
+
+### 🔹 Modelo do colega (Simples)
+
+```
+Internet → EC2 → Docker → n8n
+```
+
+**Características:**
+
+* Simples
+* Rápido de implementar
+* Sem HTTPS nativo
+* Sem alta disponibilidade
+* Sem CDN
+
+---
+
+### 🔹 Sua Arquitetura (Evoluída)
+
+```
+User → Route53 → CloudFront → ALB → EC2 → Docker → n8n → DB
+```
+
+**Diferenciais técnicos:**
+
+✔ HTTPS com certificado gerenciado
+✔ CDN global (baixa latência)
+✔ Separação de camadas
+✔ Preparado para escalar
+✔ Melhor prática AWS
+
+---
+
+### 🧠 Como explicar isso na apresentação
+
+> “A proposta evolui de uma arquitetura funcional para uma arquitetura orientada a produção, incorporando segurança (HTTPS), distribuição global (CDN) e desacoplamento de camadas, permitindo escalabilidade e maior resiliência.”
+
+---
+
+## 📈 Escalabilidade
+
+| Componente | Evolução     |
+| ---------- | ------------ |
+| EC2        | Auto Scaling |
+| ALB        | Multi-AZ     |
+| n8n        | Queue Mode   |
+| DB         | RDS          |
+
+---
+
+## 🔐 Segurança
+
+* HTTPS obrigatório (CloudFront + ACM)
+* Security Groups restritivos
+* Possibilidade de WAF
+* Isolamento por camadas
+
+---
+
+## 💰 FinOps
+
+| Recurso    | Estratégia           |
+| ---------- | -------------------- |
+| EC2        | t3.micro (Free Tier) |
+| CloudFront | Pay-per-use          |
+| Route53    | baixo custo          |
+| ACM        | gratuito             |
+
+💡 Arquitetura pensada para crescer **sem custo inicial alto**.
+
+---
+
+## 🧪 Testes (Postman)
+
+Fluxo:
+
+1. Criar webhook no n8n
+2. Expor via HTTPS (CloudFront)
+3. Testar com Postman
+4. Validar execução
+
+---
+
+## 🚀 Roadmap
+
+* [ ] Terraform completo modular
+* [ ] Multi-environment (dev/staging/prod)
+* [ ] Observabilidade (CloudWatch)
+* [ ] CI/CD pipeline
+* [ ] Arquitetura distribuída (SQS + workers)
+
+---
+
+## 🎯 Conclusão
+
+Este projeto demonstra:
+
+* Evolução de arquitetura (simples → escalável)
+* Uso de boas práticas AWS
+* Segurança desde o início
+* Pensamento de engenharia de produção
+
+💡 Mais do que rodar uma aplicação, o foco foi construir uma **base sólida para sistemas reais em nuvem**.
