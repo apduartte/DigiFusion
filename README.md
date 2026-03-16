@@ -7,6 +7,16 @@
 ![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-success)
 
 ---
+
+Arquitetura 2-Tier | Infraestrutura como Código | Segurança Básica em Cloud
+
+---
+
+# 1️⃣ Contexto
+
+Esta Prova de Conceito (POC) foi desenvolvida como parte da **Formação AWS – Ciclo 3**, com foco na aplicação prática de conceitos fundamentais de Arquitetura em Nuvem e Infraestrutura como Código.
+
+O projeto visa consolidar conhecimentos em:
 # 🚀 n8n on AWS | Cloud Architecture | Terraform | HTTPS | DevOps Project
 
 <p align="center">
