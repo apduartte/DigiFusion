@@ -1,0 +1,18 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]   # ou "master", conforme sua branch padrão
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configuração básica
+        run: echo "Pipeline principal configurado com sucesso!"
+
