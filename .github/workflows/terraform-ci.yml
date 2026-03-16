@@ -29,10 +29,10 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.6.6
+          terraform_version: 1.14.7   # versão LTS estável
 
       - name: Terraform fmt
-        run: terraform -chdir=infra/terraform fmt -check -recursive
+        run: terraform -chdir=${{ env.TF_ROOT }} fmt -check -recursive
 
       - name: Terraform init (CI sem backend remoto)
         run: terraform -chdir=${{ env.TF_ROOT }} init -backend=false -input=false
@@ -41,4 +41,19 @@ jobs:
         run: terraform -chdir=${{ env.TF_ROOT }} validate
 
       - name: Terraform plan (dry-run)
-        run: terraform -chdir=${{ env.TF_ROOT }} plan -input=false -lock=false
+        run: terraform -chdir=${{ env.TF_ROOT }} plan -input=false -lock=false -out=tfplan
+
+      # Upload do plano como artefato para auditoria
+      - name: Upload Terraform Plan
+        uses: actions/upload-artifact@v3
+        with:
+          name: terraform-plan
+          path: ${{ env.TF_ROOT }}/tfplan
+
+      # Upload de logs para rastreabilidade
+      - name: Upload Terraform Logs
+        uses: actions/upload-artifact@v3
+        with:
+          name: terraform-logs
+          path: ${{ env.TF_ROOT }}/.terraform
+
