@@ -20,7 +20,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker Image
-        run: docker build -t digifusion-bia .
+        run: docker build -t digifusion-bia -f bia/docker/Dockerfile ./bia
 
       - name: Teste
         run: echo "Docker build realizado com sucesso!"
