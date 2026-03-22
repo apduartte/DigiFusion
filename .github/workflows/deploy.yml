@@ -38,10 +38,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Tag da imagem
-        run: docker tag digifusion-bia:latest ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:dev
+        run: docker tag digifusion-bia:latest ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:dev-${{ github.sha }}
 
       - name: Push para AWS ECR
-        run: docker push ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:dev
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:dev-${{ github.sha }}
 
       - name: Deploy ECS DEV
         run: |
@@ -67,10 +67,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Tag da imagem
-        run: docker tag digifusion-bia:latest ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:staging
+        run: docker tag digifusion-bia:latest ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:staging-${{ github.sha }}
 
       - name: Push para AWS ECR
-        run: docker push ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:staging
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:staging-${{ github.sha }}
 
       - name: Deploy ECS STAGING
         run: |
@@ -78,16 +78,16 @@ jobs:
             --cluster ${{ secrets.ECS_CLUSTER_STAGING }} \
             --service ${{ secrets.ECS_SERVICE_STAGING }} \
             --force-new-deployment
-      deploy-prod:
+
+  deploy-prod:
     needs: [build, deploy-staging]
     runs-on: ubuntu-latest
     environment: PROD
     steps:
-      - name: Configurar credenciais AWS
+      - name: Configurar credenciais AWS (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-role
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Autenticar com AWS ECR
@@ -107,4 +107,5 @@ jobs:
             --service ${{ secrets.ECS_SERVICE_PROD }} \
             --force-new-deployment
           echo "[CI/CD] Deploy em PROD concluído com sucesso."
+
 
