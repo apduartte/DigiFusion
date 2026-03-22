@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Autenticar com AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build da imagem Docker
+        run: |
+          docker build -t meu-app .
+          echo "[CI/CD] Docker build concluído com sucesso."
+
+      - name: Tag da imagem
+        run: |
+          docker tag meu-app:latest ${{ steps.login-ecr.outputs.registry }}/meu-app:latest
+
+      - name: Push para AWS ECR
+        run: |
+          docker push ${{ steps.login-ecr.outputs.registry }}/meu-app:latest
+          echo "[CI/CD] Imagem enviada para o ECR com sucesso."
+
+      - name: Deploy para ambiente de staging
+        run: |
+          echo "[CI/CD] Iniciando deploy para ambiente de staging..."
+          # Comando de deploy aqui (ex: ECS, EKS, Fargate)
