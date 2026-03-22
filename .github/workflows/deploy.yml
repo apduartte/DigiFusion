@@ -1,17 +1,13 @@
-name: Deploy DEV
+name: CI/CD Multi-Ambiente
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
-    permissions:
-      id-token: write
-      contents: read
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,4 +19,92 @@ jobs:
         run: docker build -t digifusion-bia -f bia/docker/Dockerfile ./bia
 
       - name: Teste
-        run: echo "Docker build realizado com sucesso!"
+        run: echo "[CI/CD] Docker build realizado com sucesso!"
+
+  deploy-dev:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: DEV
+    steps:
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Autenticar com AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Tag da imagem
+        run: docker tag digifusion-bia:latest ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:dev
+
+      - name: Push para AWS ECR
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:dev
+
+      - name: Deploy ECS DEV
+        run: |
+          aws ecs update-service \
+            --cluster ${{ secrets.ECS_CLUSTER_DEV }} \
+            --service ${{ secrets.ECS_SERVICE_DEV }} \
+            --force-new-deployment
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: STAGING
+    steps:
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Autenticar com AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Tag da imagem
+        run: docker tag digifusion-bia:latest ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:staging
+
+      - name: Push para AWS ECR
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:staging
+
+      - name: Deploy ECS STAGING
+        run: |
+          aws ecs update-service \
+            --cluster ${{ secrets.ECS_CLUSTER_STAGING }} \
+            --service ${{ secrets.ECS_SERVICE_STAGING }} \
+            --force-new-deployment
+
+  deploy-prod:
+    needs: [build, deploy-staging]
+    runs-on: ubuntu-latest
+    environment: PROD
+    steps:
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Autenticar com AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Tag da imagem
+        run: docker tag digifusion-bia:latest ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:prod
+
+      - name: Push para AWS ECR
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:prod
+
+      - name: Deploy ECS PROD
+        run: |
+          aws ecs update-service \
+            --cluster ${{ secrets.ECS_CLUSTER_PROD }} \
+            --service ${{ secrets.ECS_SERVICE_PROD }} \
+            --force-new-deployment
+
