@@ -78,8 +78,7 @@ jobs:
             --cluster ${{ secrets.ECS_CLUSTER_STAGING }} \
             --service ${{ secrets.ECS_SERVICE_STAGING }} \
             --force-new-deployment
-
-  deploy-prod:
+      deploy-prod:
     needs: [build, deploy-staging]
     runs-on: ubuntu-latest
     environment: PROD
@@ -96,10 +95,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Tag da imagem
-        run: docker tag digifusion-bia:latest ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:prod
+        run: docker tag digifusion-bia:latest ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:prod-${{ github.sha }}
 
       - name: Push para AWS ECR
-        run: docker push ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:prod
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/digifusion-bia:prod-${{ github.sha }}
 
       - name: Deploy ECS PROD
         run: |
@@ -107,4 +106,5 @@ jobs:
             --cluster ${{ secrets.ECS_CLUSTER_PROD }} \
             --service ${{ secrets.ECS_SERVICE_PROD }} \
             --force-new-deployment
+          echo "[CI/CD] Deploy em PROD concluído com sucesso."
 
