@@ -1,25 +1,7 @@
-jobs:
-  terraform:
-    runs-on: ubuntu-latest
+terraform {
+  required_version = ">= 1.5.0"
+}
 
-    defaults:
-      run:
-        working-directory: bia/infra/terraform/envs/dev
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Debug
-        run: |
-          pwd
-          ls -la
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Plan
-        run: terraform plan -input=false -var-file="terraform.tfvars"
+provider "aws" {
+  region = "us-east-1"
+}
