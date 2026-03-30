@@ -1,3 +1,10 @@
+name: Terraform CI
+
+on:
+  pull_request:
+    paths:
+      - 'bia/infra/terraform/**'
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -13,13 +20,17 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Debug
-        run: |
-          pwd
-          ls -la
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        run: terraform validate
 
       - name: Terraform Init
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -input=false -var-file="terraform.tfvars"
+        run: terraform plan -input=false
+        # Se você realmente tiver um terraform.tfvars, mantenha:
+        # run: terraform plan -input=false -var-file="terraform.tfvars"
+
