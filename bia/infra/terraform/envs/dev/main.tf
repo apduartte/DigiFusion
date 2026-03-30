@@ -1,44 +1,25 @@
-provider "aws" {
-  region = var.region
-}
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
 
-locals {
-  tags = {
-    Environment = "dev"
-    Project     = "n8n"
-    Owner       = "ana"
-    CostCenter  = "lab"
-  }
-}
+    defaults:
+      run:
+        working-directory: bia/infra/terraform/envs/dev
 
-module "vpc" {
-  source               = "../../modules/vpc"
-  public_subnet_cidrs  = var.public_subnet_cidrs
-  private_subnet_cidrs = var.private_subnet_cidrs
-  tags                 = var.tags
-}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-#module "rds" {
-#  source      = "../../modules/rds"
-#  vpc_id      = module.vpc.vpc_id
-#  subnet_ids  = module.vpc.private_subnets
-#  db_password = var.db_password
-#  tags        = local.tags
-#}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
-#module "ecs" {
-#  source      = "../../modules/ecs"
-#  vpc_id      = module.vpc.vpc_id
-#  subnet_ids  = module.vpc.private_subnets
-#  db_host     = module.rds.db_host
-#  db_password = var.db_password
-#  tags        = local.tags
-#}
+      - name: Debug
+        run: |
+          pwd
+          ls -la
 
-#module "alb" {
-#  source      = "../../modules/alb"
-#  vpc_id      = module.vpc.vpc_id
-#  subnet_ids  = module.vpc.public_subnets
-#  target_arn  = module.ecs.target_group_arn
-#  tags        = local.tags
-#}
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -input=false -var-file="terraform.tfvars"
