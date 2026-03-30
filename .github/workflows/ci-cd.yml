@@ -1,37 +1,108 @@
-name: CI/CD Pipeline
+name: CI/CD Multi-Environment
 
 on:
   push:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  ECR_REPOSITORY: digifusion-bia
+  IMAGE_TAG: ${{ github.sha }}
+
 jobs:
-  deploy:
+  build-and-push:
+    name: Build and Push Image
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout código
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Autenticar com AWS ECR
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-role
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build da imagem Docker
+      - name: Build Docker Image
         run: |
-          docker build -t meu-app .
-          echo "[CI/CD] Docker build concluído com sucesso."
+          docker build -t $ECR_REPOSITORY -f bia/docker/Dockerfile ./bia
 
-      - name: Tag da imagem
+      - name: Tag Image
         run: |
-          docker tag meu-app:latest ${{ steps.login-ecr.outputs.registry }}/meu-app:latest
+          docker tag $ECR_REPOSITORY:latest ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
 
-      - name: Push para AWS ECR
+      - name: Push Image to ECR
         run: |
-          docker push ${{ steps.login-ecr.outputs.registry }}/meu-app:latest
-          echo "[CI/CD] Imagem enviada para o ECR com sucesso."
+          docker push ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
 
-      - name: Deploy para ambiente de staging
+  deploy-dev:
+    name: Deploy DEV
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: DEV
+
+    steps:
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-role
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to ECS (DEV)
         run: |
-          echo "[CI/CD] Iniciando deploy para ambiente de staging..."
-          # Comando de deploy aqui (ex: ECS, EKS, Fargate)
+          aws ecs update-service \
+            --cluster ${{ secrets.ECS_CLUSTER_DEV }} \
+            --service ${{ secrets.ECS_SERVICE_DEV }} \
+            --force-new-deployment
+
+  deploy-staging:
+    name: Deploy STAGING
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: STAGING
+
+    steps:
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-role
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to ECS (STAGING)
+        run: |
+          aws ecs update-service \
+            --cluster ${{ secrets.ECS_CLUSTER_STAGING }} \
+            --service ${{ secrets.ECS_SERVICE_STAGING }} \
+            --force-new-deployment
+
+  deploy-prod:
+    name: Deploy PROD
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    environment: PROD
+
+    steps:
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-role
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to ECS (PROD)
+        run: |
+          aws ecs update-service \
+            --cluster ${{ secrets.ECS_CLUSTER_PROD }} \
+            --service ${{ secrets.ECS_SERVICE_PROD }} \
+            --force-new-deployment
+
+      - name: Success संदेश
+        run: echo "[CI/CD] Deploy em produção concluído com sucesso."
