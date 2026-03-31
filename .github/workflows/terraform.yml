@@ -1,17 +1,11 @@
-on:
-  pull_request:
-    paths:
-      - 'bia/infra/terraform/**'
-
-defaults:
-  run:
-    working-directory: bia/infra/terraform/envs/dev
 name: Terraform CI
 
 on:
   push:
     branches: [ "main", "develop" ]
   pull_request:
+    paths:
+      - 'bia/infra/terraform/**'
 
 jobs:
   terraform:
@@ -25,38 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 🔐 AQUI — credenciais AWS
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Plan
-        run: terraform plan -input=false -var-file="terraform.tfvars"
-
-on:
-  push:
-    branches: [ "main", "develop" ]
-  pull_request:
-
-jobs:
-  terraform:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: bia/infra/terraform/envs/dev
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
+      # 🔐 Configuração das credenciais AWS
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -77,15 +40,5 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -input=false
-      - name: Terraform Validate
-        run: terraform validate
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Plan
-        run: terraform plan -input=false
-        # Se existir terraform.tfvars:
-        # run: terraform plan -input=false -var-file="terraform.tfvars"
+        run: terraform plan -input=false -var-file="terraform.tfvars"
 
