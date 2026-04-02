@@ -1,0 +1,69 @@
+name: DigiFusion CI/CD
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  terraform:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/master'
+        run: terraform apply -auto-approve tfplan
+
+  n8n-test:
+    runs-on: ubuntu-latest
+    needs: terraform
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Instalação do n8n
+      - name: Setup n8n
+        run: |
+          npm install -g n8n
+
+      # Execução de um workflow de teste
+      - name: Run n8n workflow test
+        run: |
+          n8n execute --file ./workflows/test-workflow.json
+
