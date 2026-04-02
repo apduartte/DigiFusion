@@ -14,7 +14,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project     = "DigiFusion"
+      Project     = "Digifusion"
       Environment = var.environment
       ManagedBy   = "Terraform"
     }
