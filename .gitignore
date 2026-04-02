@@ -1,0 +1,34 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfplan
+
+# AWS
+.aws/
+
+# SSH
+.ssh/
+
+# Logs
+*.log
+
+# Sistema
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+
+# Secrets
+.env
+*.pem
+*.key
