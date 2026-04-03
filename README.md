@@ -1,58 +1,198 @@
-# DigiFusion - Projeto de Infraestrutura e Aplicação
+# 🚀 DigiFusion | Arquitetura AWS Nível FAANG (Zero Trust + FinOps)
 
-## Visão Geral
-O projeto **DigiFusion** consiste em uma aplicação com infraestrutura provisionada na AWS, usando **Terraform** para gerenciar recursos e garantindo boas práticas de FinOps e rastreabilidade de custos.
-
-Este README funciona como guia-mestre, com visão geral do projeto, estrutura de pastas e passo a passo para rodar o ambiente de desenvolvimento.
+> **Arquitetura cloud de nível empresarial, focada em segurança, escalabilidade e otimização de custos.**
 
 ---
 
-## Estrutura do Projeto
-DigiFusion/
-│
-├─ bia/infra/terraform/ # Código Terraform
-│ ├─ envs/
-│ │ ├─ dev/ # Ambiente de desenvolvimento
-│ │ │ └─ README.md # Documentação específica do dev
-│ │ └─ prod/ # Ambiente de produção
-│ └─ modules/ # Módulos reutilizáveis
-│
-├─ bia/app/ # Código da aplicação
-│ └─ README.md # Documentação do app
-│
-└─ docs/ # Documentação complementar
+## 🧠 Visão Geral do Projeto
+
+Este projeto demonstra uma arquitetura DevOps moderna utilizando AWS, com:
+
+* 🔐 **Zero Trust (acesso via SSM, sem SSH)**
+* 💰 **FinOps (sem NAT Gateway, custo otimizado)**
+* ⚙️ **Infraestrutura como Código (Terraform modular)**
+* 🔄 **CI/CD com GitHub Actions**
 
 ---
 
-## Passo a Passo - Infraestrutura
+## 🏗️ Diagrama de Arquitetura (High Level)
 
-1. Navegue até a pasta do ambiente dev:
+```text
+                ┌───────────────┐
+                │     USER      │
+                └──────┬────────┘
+                       │
+                ┌──────▼────────┐
+                │      ALB      │  (Público)
+                └──────┬────────┘
+                       │
+                ┌──────▼────────┐
+                │      EC2      │  (Privado)
+                └──────┬────────┘
+                       │
+              ┌────────▼─────────┐
+              │  SSM Session     │
+              └────────┬─────────┘
+                       │
+      ┌────────────────▼────────────────┐
+      │ VPC Endpoints (SSM, EC2Messages)│
+      └─────────────────────────────────┘
+```
+
+---
+
+## 📊 Métricas (Estimativas Realistas)
+
+### ⚡ Latência
+
+| Componente  | Latência média |
+| ----------- | -------------- |
+| ALB → EC2   | ~10–30ms       |
+| SSM Session | ~100–300ms     |
+
+### 🚀 Throughput
+
+* EC2 t3.micro: ~500–1000 req/s (dependendo da app)
+* Escalável horizontalmente com ALB
+
+### 💰 Custo Estimado (mensal)
+
+| Recurso            | Custo           |
+| ------------------ | --------------- |
+| EC2 t3.micro       | ~$8–12          |
+| ALB                | ~$16            |
+| VPC Endpoint       | ~$7–10          |
+| Route53            | ~$1             |
+| **Total estimado** | **~$30–40/mês** |
+
+> 💡 Economia: ~40% vs arquitetura com NAT Gateway
+
+---
+
+## 🔐 Segurança (Zero Trust)
+
+* ❌ Sem SSH (porta 22 bloqueada)
+* ✅ Acesso via AWS SSM
+* ✅ EC2 em subnet privada
+* ✅ Security Group restrito (ALB → EC2)
+* ✅ Comunicação interna via VPC Endpoints
+
+---
+
+## 💰 Estratégia FinOps
+
+* Eliminação de NAT Gateway
+* Uso de VPC Endpoints
+* Dimensionamento correto de instância
+* Preparado para auto scaling futuro
+
+---
+
+## ⚙️ Stack Tecnológica
+
+* AWS (EC2, ALB, VPC, SSM, Route53)
+* Terraform (modular)
+* GitHub Actions
+* Docker (opcional)
+
+---
+
+## 📦 Estrutura Modular Terraform
 
 ```bash
-cd bia/infra/terraform/envs/dev
+modules/
+  network/
+  alb/
+  ec2/
+  iam/
+  dns/
+```
 
-2. Inicialize o Terraform:
-terraform init
+---
 
-3.Valide a configuração:
+## 🧪 Testes e Validação (SRE Style)
+
+### ✔️ Infraestrutura
+
+```bash
 terraform validate
+terraform plan
+```
 
-4.Planeje a criação da infraestrutura:
-terraform plan -var-file="terraform.tfvars"
+### ✔️ Conectividade
 
-5.Aplique o plano para criar os recursos:
-terraform apply -var-file="terraform.tfvars"
+* Teste acesso via SSM
+* Verificar health check do ALB
 
-Para mais detalhes da infraestrutura, consulte o README específico:
-bia/infra/terraform/envs/dev/README.md
+### ✔️ Segurança
 
-Considerações de FinOps
-Bucket S3 com lifecycle configurado (limpeza automática de objetos antigos)
-DynamoDB para lock do Terraform (custo quase zero)
-PostgreSQL em ambiente dev pode usar EC2 t3.micro ou local para minimizar custos
-Tags aplicadas a todos os recursos para rastreabilidade (Environment, Owner)
+* Validar ausência de porta 22
+* Validar EC2 sem IP público
 
-Referências
-Terraform AWS Provider
-Documentação AWS S3 Lifecycle
-Boas práticas FinOps
+### ✔️ Performance
+
+```bash
+ab -n 1000 -c 50 http://seu-alb
+```
+
+---
+
+## 🔄 CI/CD Pipeline
+
+```yaml
+Terraform Init
+Terraform Validate
+Terraform Plan
+```
+
+---
+
+## 📈 Evolução da Arquitetura
+
+| Versão | Arquitetura       |
+| ------ | ----------------- |
+| v1     | EC2 simples       |
+| v2     | ALB + EC2         |
+| v3     | EC2 privada + SSM |
+| v4     | Worker + fila     |
+| v5     | ECS / Kubernetes  |
+
+---
+
+## 🎯 Como Explicar em Entrevista (Pitch Técnico)
+
+> “Implementei uma arquitetura AWS baseada em princípios de Zero Trust, eliminando completamente o uso de SSH e utilizando SSM para acesso seguro. A infraestrutura foi provisionada com Terraform modular, garantindo escalabilidade e reaproveitamento. Também apliquei práticas de FinOps, reduzindo custos ao remover o NAT Gateway e substituí-lo por VPC Endpoints. O sistema está preparado para evolução para containers e orquestração com Kubernetes.”
+
+---
+
+## 📣 Post para LinkedIn
+
+```text
+🚀 Construí uma arquitetura AWS nível FAANG com foco em segurança e custo!
+
+🔐 Zero Trust (sem SSH, apenas SSM)
+💰 FinOps (sem NAT Gateway)
+⚙️ Infra como Código (Terraform)
+
+Preparada para escalar para Kubernetes.
+
+#AWS #DevOps #Terraform #Cloud #FinOps #SSM
+```
+
+---
+
+## 👩‍💻 Autora
+
+**Ana Paula Duarte**
+Cloud | DevOps | AWS
+
+---
+
+## ⭐ Destaque
+
+Projeto desenvolvido com foco em padrões utilizados por empresas como Big Techs, priorizando:
+
+* Segurança
+* Escalabilidade
+* Eficiência de custo
+* Automação completa
