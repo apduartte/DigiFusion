@@ -1,4 +1,4 @@
-# 🚀 DigiFusion | Arquitetura AWS Nível FAANG (Zero Trust + FinOps)
+# 🚀 DigiFusion
 
 > **Arquitetura cloud de nível empresarial, focada em segurança, escalabilidade e otimização de custos.**
 
