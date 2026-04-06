@@ -1,7 +1,6 @@
 <div style="background-color:#0a0a23; color:white; padding:25px; border-radius:12px; text-align:center;">
   <h1 style="color:#ff6600; margin-bottom:5px;">DigiFusion – CI/CD & Terraform</h1>
-  <p style="font-size:18px; color:#cccccc;">Portfólio profissional com padrões FAANG</p>
-</div>
+  </div>
 
 ---
 
