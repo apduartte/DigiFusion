@@ -31,7 +31,7 @@ variable "private_subnet_cidrs" {
 variable "tags" {
   description = "Tags padrão"
   type        = map(string)
-  default     = {
+  default = {
     Owner       = "Ana"
     Environment = "dev"
   }

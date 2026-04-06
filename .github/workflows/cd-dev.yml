@@ -1,0 +1,29 @@
+name: CD DEV
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'bia/infra/terraform/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: dev
+
+    defaults:
+      run:
+        working-directory: bia/infra/terraform
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: AWS OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - run: terraform init -input=false
+      - run: terraform apply -auto-approve
