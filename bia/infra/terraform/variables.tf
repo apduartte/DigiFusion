@@ -37,7 +37,7 @@ variable "ami" {
 variable "tags" {
   description = "Tags padrão"
   type        = map(string)
-  default     = {
+  default = {
     Owner       = "Ana"
     Environment = "dev"
     Project     = "infra"

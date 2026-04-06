@@ -19,18 +19,18 @@ module "rds" {
 }
 
 module "ec2" {
-  source        = "../../modules/ec2"
-  subnet_id     = module.vpc.subnet_id
-  sg_id         = module.security.ec2_sg
-  db_host       = module.rds.db_host
-  db_password   = var.db_password
+  source      = "../../modules/ec2"
+  subnet_id   = module.vpc.subnet_id
+  sg_id       = module.security.ec2_sg
+  db_host     = module.rds.db_host
+  db_password = var.db_password
 }
 
 module "alb" {
-  source     = "../../modules/alb"
-  vpc_id     = module.vpc.vpc_id
-  subnet_id  = module.vpc.subnet_id
-  target_id  = module.ec2.instance_id
+  source    = "../../modules/alb"
+  vpc_id    = module.vpc.vpc_id
+  subnet_id = module.vpc.subnet_id
+  target_id = module.ec2.instance_id
 }
 
 module "cloudfront" {
