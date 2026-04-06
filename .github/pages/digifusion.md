@@ -20,8 +20,8 @@
 ## 🌐 Visão Geral
 
 <div style="background-color:#1a1a40; color:white; padding:15px; border-radius:8px;">
-DigiFusion combina **Terraform**, **AWS** e **GitHub Actions** para criar pipelines CI/CD **seguros, escaláveis e fáceis de auditar**.  
-O projeto demonstra **controle de ambientes, automação e boas práticas de engenharia.
+DigiFusion combina Terraform**, AWS e GitHub Actions para criar pipelines CI/CD seguros, escaláveis e fáceis de auditar.  
+O projeto demonstra controle de ambientes, automação e boas práticas de engenharia.
 </div>
 
 ---
