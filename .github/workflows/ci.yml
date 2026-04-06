@@ -1,0 +1,33 @@
+name: CI Terraform
+
+on:
+  pull_request:
+    paths:
+      - 'bia/infra/terraform/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: bia/infra/terraform
+
+    steps:
+      # 1️⃣ Clona o repositório
+      - uses: actions/checkout@v4
+
+      # 2️⃣ Setup Terraform
+      - uses: hashicorp/setup-terraform@v3
+
+      # 3️⃣ Inicializa Terraform
+      - run: terraform init -input=false
+
+      # 4️⃣ Formatação do código Terraform
+      - run: terraform fmt -check -diff
+
+      # 5️⃣ Validação da configuração Terraform
+      - run: terraform validate
+
+      # 6️⃣ Gera plano de execução
+      - run: terraform plan -no-color
