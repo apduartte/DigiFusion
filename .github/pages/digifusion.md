@@ -1,137 +1,83 @@
-<div style="background-color:#0a0a23; color:white; padding:25px; border-radius:12px; text-align:center;">
-  <h1 style="color:#ff6600;">DigiFusion – CI/CD & Terraform</h1>
-  <p style="font-size:18px; color:#cccccc;">Portfólio profissional com padrões FAANG</p>
-</div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DigiFusion-N8N | Arquitetura AWS</title>
 
----
+  <script src="https://cdn.tailwindcss.com"></script>
 
-## 🌟 Status do Projeto
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
 
-![CI](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CI?style=for-the-badge)
-![CD](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CD?style=for-the-badge)
+<body class="bg-gray-950 text-gray-100">
 
----
+<!-- HEADER -->
+<header class="p-6 border-b border-gray-800 flex justify-between items-center">
+  <h1 class="text-2xl font-bold text-orange-400">🚀 DigiFusion-N8N</h1>
+  <button onclick="toggleTheme()" class="bg-gray-800 px-4 py-2 rounded-xl hover:bg-gray-700">🌙/☀️</button>
+</header>
 
-## 🌐 Visão Geral
+<!-- HERO -->
+<section class="text-center py-16 px-6">
+  <h2 class="text-4xl font-bold mb-4">Arquitetura Escalável na AWS</h2>
+  <p class="text-gray-400 max-w-2xl mx-auto">
+    Plataforma moderna para automação de workflows com foco em escalabilidade, resiliência e eficiência operacional.
+  </p>
+</section>
 
-> 🚀 Pipeline CI/CD com Terraform + AWS + GitHub Actions  
-> 🔐 Segurança via OIDC (sem credenciais hardcoded)  
-> 📦 Infraestrutura como código (IaC)
+<!-- CARDS -->
+<section class="grid md:grid-cols-3 gap-6 px-6 pb-16">
 
----
+  <div class="bg-gray-900 p-6 rounded-2xl shadow">
+    <h3 class="text-xl font-semibold mb-2">⚙️ DevOps</h3>
+    <p class="text-gray-400">CI/CD automatizado, Terraform e deploy contínuo.</p>
+  </div>
 
-## 🏗️ Arquitetura
+  <div class="bg-gray-900 p-6 rounded-2xl shadow">
+    <h3 class="text-xl font-semibold mb-2">🔐 Segurança</h3>
+    <p class="text-gray-400">IAM, WAF, criptografia e acesso via SSM.</p>
+  </div>
 
-```mermaid
-flowchart LR
-  A[Pull Request] -->|CI| B[Validate]
-  B --> C[Merge]
-  C --> D[CD]
-  D --> E[AWS OIDC]
-  E --> F[Terraform Apply]
-```
+  <div class="bg-gray-900 p-6 rounded-2xl shadow">
+    <h3 class="text-xl font-semibold mb-2">📈 SRE</h3>
+    <p class="text-gray-400">Alta disponibilidade, SLOs e observabilidade.</p>
+  </div>
 
----
+</section>
 
-## 📂 Detalhamento Técnico
+<!-- FLUXO -->
+<section class="px-6 pb-16">
+  <h3 class="text-2xl font-bold mb-4">🔄 Fluxo da Aplicação</h3>
+  <div class="bg-gray-900 p-6 rounded-2xl overflow-x-auto">
+    <pre class="text-green-400">Usuário → Route53 → WAF → ALB → N8N → Fila → Workers → RDS</pre>
+  </div>
+</section>
 
-<details>
-<summary><strong>🔧 Pipeline CI</strong></summary>
+<!-- DIFERENCIAIS -->
+<section class="px-6 pb-16">
+  <h3 class="text-2xl font-bold mb-4">🎯 Diferenciais</h3>
+  <ul class="grid md:grid-cols-2 gap-4 text-gray-400">
+    <li>✔ Arquitetura evolutiva</li>
+    <li>✔ Segurança sem SSH</li>
+    <li>✔ Automação com Terraform</li>
+    <li>✔ Alta confiabilidade</li>
+  </ul>
+</section>
 
-- terraform fmt  
-- terraform validate  
-- terraform plan  
-- Executado em Pull Requests  
+<!-- FOOTER -->
+<footer class="text-center p-6 border-t border-gray-800 text-gray-500">
+  <p>✨ Projeto profissional pronto para portfólio e produção</p>
+</footer>
 
-</details>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('bg-white');
+  document.body.classList.toggle('text-black');
+}
+</script>
 
----
-
-<details>
-<summary><strong>🚀 Pipeline CD</strong></summary>
-
-- Trigger: push na main  
-- Autenticação: AWS OIDC  
-- Deploy automático com terraform apply  
-
-</details>
-
----
-
-<details>
-<summary><strong>🔐 Segurança (OIDC)</strong></summary>
-
-- Sem uso de Access Key  
-- Autenticação via GitHub → AWS  
-- Role com trust policy OIDC  
-- Princípio de menor privilégio  
-
-</details>
-
----
-
-<details>
-<summary><strong>🏗️ Infraestrutura Terraform</strong></summary>
-
-- VPC  
-- Subnets  
-- Security Groups  
-- RDS  
-- S3  
-
-</details>
-
----
-
-## 📌 Skills Demonstradas
-
-<div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px;">
-
-<div style="background:#1a1a40; padding:10px; border-radius:6px;">Terraform Modular</div>
-<div style="background:#1a1a40; padding:10px; border-radius:6px;">CI/CD</div>
-<div style="background:#1a1a40; padding:10px; border-radius:6px;">AWS OIDC</div>
-<div style="background:#1a1a40; padding:10px; border-radius:6px;">Git Flow</div>
-
-</div>
-
----
-
-## 🚀 Roadmap
-
-<details>
-<summary><strong>📈 Expansão futura</strong></summary>
-
-- Ambiente PROD com approval  
-- Integração com n8n  
-- Observabilidade (logs + metrics)  
-- Backup automatizado  
-
-</details>
-
----
-
-## ▶️ Execução Local
-
-```bash
-git clone https://github.com/apduartte/DigiFusion.git
-cd DigiFusion/bia/infra/terraform
-
-terraform init
-terraform validate
-terraform plan
-terraform apply -auto-approve
-```
-
----
-
-## ⚠️ Observação
-
-<div style="background-color:#ff6600; color:white; padding:10px; border-radius:6px;">
-Certifique-se de configurar corretamente o environment <strong>dev</strong> e os secrets AWS no GitHub.
-</div>
-
----
-
-<div style="text-align:center; margin-top:20px;">
-  <strong>💻 DigiFusion | Portfólio Profissional</strong>
-</div>
+</body>
+</html>
