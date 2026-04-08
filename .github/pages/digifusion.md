@@ -1,30 +1,36 @@
 
-Markdown
 # DigiFusion – CI/CD & Terraform 🚀
 
-**Automação segura, auditável e escalável de infraestrutura em AWS.**  
-DigiFusion combina **Terraform, AWS e GitHub Actions** para pipelines CI/CD confiáveis, visíveis e fáceis de auditar. Projetado com **práticas avançadas de SRE**, foco em **UX e SEO**, ideal para engenheiros DevOps de alto nível.
+<p align="center">
+  <strong>Automação segura, auditável e escalável de infraestrutura em AWS</strong><br>
+  DigiFusion integra <strong>Terraform, AWS e GitHub Actions</strong> para pipelines confiáveis, visíveis e auditáveis.
+</p>
 
 ---
 
 ## 🌟 Status do Projeto
 
-![CI](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CI?style=for-the-badge&logo=github&color=00C853)  
-![CD](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CD?style=for-the-badge&logo=github&color=2979FF)  
-![Lint](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Lint?style=for-the-badge&logo=terraform&color=FF6D00)  
-![Security](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Security?style=for-the-badge&logo=security&color=D50000)  
-![Terraform fmt](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Terraform%20Fmt?style=for-the-badge&logo=terraform&color=00BFA5)  
-![Terraform validate](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Terraform%20Validate?style=for-the-badge&logo=terraform&color=64DD17)
+<p align="center">
+  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CI?style=for-the-badge&logo=github&color=00C853" alt="CI">
+  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CD?style=for-the-badge&logo=github&color=2979FF" alt="CD">
+  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Lint?style=for-the-badge&logo=terraform&color=FF6D00" alt="Lint">
+  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Security?style=for-the-badge&logo=security&color=D50000" alt="Security">
+  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Terraform%20Fmt?style=for-the-badge&logo=terraform&color=00BFA5" alt="Terraform fmt">
+  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Terraform%20Validate?style=for-the-badge&logo=terraform&color=64DD17" alt="Terraform validate">
+</p>
 
 ---
 
 ## 🌐 Visão Geral
 
-DigiFusion é um **framework DevOps completo** que demonstra:  
-- **Controle rigoroso de ambientes**: DEV, QA e PROD isolados e auditáveis  
-- **Automação CI/CD total**: integração contínua, deploy confiável, rollback seguro  
-- **SRE avançado**: monitoramento, alertas e observabilidade nativa  
-- **UX + SEO para docs**: documentação clara, legível e indexável para recrutadores e comunidade
+DigiFusion é uma **blueprint DevOps de alto nível**, construída para:  
+
+- **Controle de ambientes isolados**: DEV, QA, PROD  
+- **CI/CD completo**: integração contínua, deploy seguro, rollback automático  
+- **SRE avançado**: monitoramento, alertas e observabilidade  
+- **Documentação UX + SEO**: clara, indexável e orientada a recrutadores FAANG  
+
+> **Objetivo:** criar infraestrutura confiável e escalável, com padrões de engenharia de nível sênior.
 
 ---
 
@@ -36,10 +42,10 @@ flowchart LR
     B --> C[Review & Merge]
     C --> D[Deploy Dev / Prod]
     D --> E[Monitoring & Alerts]
-Highlights:
+Destaques:
 Modularidade e segurança no deploy
-Auditabilidade completa e rastreabilidade de mudanças
-Observabilidade e alertas integrados (SRE)
+Auditabilidade completa
+Observabilidade e alertas integrados
 📌 Como Usar
 Clone o repositório:
 Bash
@@ -47,7 +53,7 @@ git clone https://github.com/apduartte/DigiFusion.git
 Acesse o diretório Terraform:
 Bash
 cd DigiFusion/bia/infra/terraform
-Inicialize o Terraform:
+Inicialize Terraform:
 Bash
 terraform init
 Valide e aplique o plano:
@@ -57,11 +63,11 @@ terraform plan
 terraform apply -auto-approve
 💡 Notas Importantes
 Configure GitHub Actions com environment: dev
-Configure corretamente os secrets AWS para garantir deploy sem falhas
-Pipelines garantem auditabilidade, segurança e consistência
+Configure corretamente os secrets AWS
+Pipelines garantem auditabilidade, confiabilidade e consistência
 💻 Publicação
-Utilize as branches main ou gh-pages para deployment via GitHub Pages.
-Pipelines automatizados asseguram reliability, visibility e compliance em cada deploy.
+Branches main ou gh-pages para GitHub Pages
+Deploy automatizado com pipelines garantem reliability e compliance
 🔧 Tecnologias e Boas Práticas
 Área
 Ferramentas / Práticas
@@ -70,18 +76,18 @@ Terraform, AWS
 CI/CD
 GitHub Actions
 Segurança
-Secrets, IAM, Lint, Policies
+Secrets, IAM, Policies, Lint
 Observabilidade
-CloudWatch, Alerts
+CloudWatch, Alerts, Logging
 Código & Qualidade
 Terraform fmt, validate
 UX / SEO
 Documentação clara, badges, headings
-🚀 Objetivo do Projeto
-Demonstrar padrões de engenharia DevOps de nível FAANG
-Garantir infraestrutura confiável, auditável e escalável
-Treinar práticas de Terraform + CI/CD + SRE com visibilidade total
-Criar referência de projeto aberto para profissionais de DevOps e recrutadores
-DigiFusion é mais que código: é uma blueprint de excelência DevOps para projetos críticos na nuvem.
-
----
+🚀 Por que DigiFusion?
+Demonstra padrões DevOps de nível FAANG
+Garantia de infraestrutura auditável e escalável
+Treina práticas avançadas de Terraform, CI/CD e SRE
+Serve como projeto referência para recrutadores e profissionais de DevOps
+�
+DigiFusion é mais que código: é **uma blueprint de excelência DevOps** pronta para produção, auditável e escalável. 
+```
