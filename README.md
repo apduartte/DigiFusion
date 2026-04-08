@@ -1,137 +1,266 @@
-<div style="background-color:#0a0a23; color:white; padding:25px; border-radius:12px; text-align:center;">
-  <h1 style="color:#ff6600;">DigiFusion – CI/CD & Terraform</h1>
-  <p style="font-size:18px; color:#cccccc;">Portfólio profissional com padrões FAANG</p>
-</div>
+
+# 🚀 DigiFusion-N8N
+Arquitetura evolutiva para automação de workflows com N8N na AWS
+
+![AWS](https://img.shields.io/badge/AWS-Cloud-%23FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-IaC-%237B42BC?style=for-the-badge&logo=terraform)
+![Docker](https://img.shields.io/badge/Docker-Container-%230db7ed?style=for-the-badge&logo=docker)
 
 ---
 
-## 🌟 Status do Projeto
+## 📌 Objetivo
 
-![CI](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CI?style=for-the-badge)
-![CD](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CD?style=for-the-badge)
+O **DigiFusion-N8N** tem como objetivo demonstrar a construção de uma arquitetura moderna na AWS, evoluindo progressivamente de uma prova de conceito (POC) até um ambiente produtivo altamente escalável.
+
+A solução aplica práticas consolidadas de:
+
+- Cloud Computing  
+- DevOps  
+- Segurança  
+- FinOps  
+- SRE (Site Reliability Engineering)  
 
 ---
 
-## 🌐 Visão Geral
+## 🧠 Modelo Arquitetural
 
-> 🚀 Pipeline CI/CD com Terraform + AWS + GitHub Actions  
-> 🔐 Segurança via OIDC (sem credenciais hardcoded)  
-> 📦 Infraestrutura como código (IaC)
+A arquitetura segue um modelo evolutivo em três estágios:
+
+| Nível | Descrição |
+|------|----------|
+| **POC** | Baixo custo, implementação rápida |
+| **HA (Alta Disponibilidade)** | Redundância e estabilidade |
+| **Produção Escalável** | Performance, resiliência e escalabilidade |
 
 ---
 
-## 🏗️ Arquitetura
+## 🏗️ Arquitetura em Camadas
 
-```mermaid
-flowchart LR
-  A[Pull Request] -->|CI| B[Validate]
-  B --> C[Merge]
-  C --> D[CD]
-  D --> E[AWS OIDC]
-  E --> F[Terraform Apply]
+### 🌐 1. Camada de Entrada (Edge)
+
+Responsável pelo roteamento e proteção do tráfego externo:
+
+- Route 53 (DNS)
+- WAF (proteção contra ataques HTTP)
+- Application Load Balancer (ALB)
+- ACM (certificados HTTPS)
+
+---
+
+### ⚙️ 2. Camada de Aplicação
+
+Responsável pelo processamento dos workflows:
+
+- N8N (instância principal)
+- Workers (processamento assíncrono via fila)
+- Auto Scaling (ajuste dinâmico de capacidade)
+
+---
+
+### 🗄️ 3. Camada de Dados
+
+Responsável pelo armazenamento persistente:
+
+- RDS PostgreSQL (Multi-AZ)
+- S3 (opcional para dados históricos e backups)
+
+---
+
+### 🔐 4. Camada de Acesso
+
+Responsável pela administração segura da infraestrutura:
+
+- AWS Systems Manager (SSM)
+- Acesso remoto sem uso de SSH (porta 22 desabilitada)
+
+---
+
+### 🧾 5. Camada de Identidade (IAM)
+
+Responsável pelo controle de permissões:
+
+- Roles (associação a serviços)
+- Policies (definição de permissões)
+- Princípio do menor privilégio (Least Privilege)
+
+---
+
+### 📊 6. Camada de Observabilidade
+
+Responsável pelo monitoramento e rastreabilidade:
+
+- CloudWatch Logs
+- Métricas (CPU, memória, latência)
+- Alarmes e notificações
+
+---
+
+### 💰 7. Camada FinOps (Transversal)
+
+Responsável pela governança de custos:
+
+- Monitoramento de consumo
+- Rightsizing de recursos
+- Otimização contínua
+
+---
+
+## 🔄 Fluxo da Aplicação
+
+```text
+Usuário
+  │
+  ▼
+Route 53 (DNS)
+  │
+  ▼
+WAF
+  │
+  ▼
+ALB (HTTPS via ACM)
+  │
+  ▼
+N8N (Orquestrador)
+  │
+  ▼
+Fila (Queue)
+  │
+  ▼
+Workers
+  │
+  ▼
+RDS PostgreSQL
 ```
 
 ---
 
-## 📂 Detalhamento Técnico
+## 🔐 Segurança (Defense in Depth)
 
-<details>
-<summary><strong>🔧 Pipeline CI</strong></summary>
+A arquitetura implementa segurança em múltiplas camadas:
 
-- terraform fmt  
-- terraform validate  
-- terraform plan  
-- Executado em Pull Requests  
+- Criptografia HTTPS com ACM  
+- Proteção contra ataques com WAF  
+- Controle de acesso com IAM  
+- Acesso administrativo via SSM  
+- SSH desabilitado (porta 22 fechada)  
+- Criptografia de dados em trânsito (TLS)  
 
-</details>
+### 🔎 Resumo de Segurança
 
----
-
-<details>
-<summary><strong>🚀 Pipeline CD</strong></summary>
-
-- Trigger: push na main  
-- Autenticação: AWS OIDC  
-- Deploy automático com terraform apply  
-
-</details>
+| Componente | Função |
+|-----------|--------|
+| ACM | Criptografia HTTPS |
+| WAF | Proteção contra ataques |
+| IAM | Controle de acesso |
+| SSM | Acesso seguro às instâncias |
 
 ---
 
-<details>
-<summary><strong>🔐 Segurança (OIDC)</strong></summary>
+## ⚙️ DevOps
 
-- Sem uso de Access Key  
-- Autenticação via GitHub → AWS  
-- Role com trust policy OIDC  
-- Princípio de menor privilégio  
+Práticas adotadas:
 
-</details>
-
----
-
-<details>
-<summary><strong>🏗️ Infraestrutura Terraform</strong></summary>
-
-- VPC  
-- Subnets  
-- Security Groups  
-- RDS  
-- S3  
-
-</details>
+- Infraestrutura como código (Terraform)
+- Pipeline de CI/CD
+- Execução remota via SSM
+- Automação de rotinas:
+  - Deploy
+  - Backup
+  - Health Check
 
 ---
 
-## 📌 Skills Demonstradas
+## 📈 SRE (Confiabilidade)
 
-<div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px;">
+### SLIs (Indicadores)
 
-<div style="background:#1a1a40; padding:10px; border-radius:6px;">Terraform Modular</div>
-<div style="background:#1a1a40; padding:10px; border-radius:6px;">CI/CD</div>
-<div style="background:#1a1a40; padding:10px; border-radius:6px;">AWS OIDC</div>
-<div style="background:#1a1a40; padding:10px; border-radius:6px;">Git Flow</div>
+- Latência  
+- Taxa de erro  
+- Disponibilidade  
 
-</div>
+### SLOs (Objetivos)
 
----
+- Disponibilidade: **99.9%**
+- Latência: **< 300ms**
 
-## 🚀 Roadmap
+### Estratégias
 
-<details>
-<summary><strong>📈 Expansão futura</strong></summary>
-
-- Ambiente PROD com approval  
-- Integração com n8n  
-- Observabilidade (logs + metrics)  
-- Backup automatizado  
-
-</details>
+- Banco Multi-AZ  
+- Load Balancer  
+- Auto Scaling  
+- Health Checks  
+- Tolerância a falhas  
 
 ---
 
-## ▶️ Execução Local
+## 💰 FinOps (Gestão de Custos)
 
-```bash
-git clone https://github.com/apduartte/DigiFusion.git
-cd DigiFusion/bia/infra/terraform
+### Principais drivers de custo
 
-terraform init
-terraform validate
-terraform plan
-terraform apply -auto-approve
+- Execuções do N8N  
+- Consumo de CPU (EC2)  
+- Armazenamento (RDS)  
+- Logs (CloudWatch)  
+
+### Estratégias de otimização
+
+- Separação de ambientes (dev, staging, prod)  
+- Uso sob demanda  
+- Rightsizing  
+- Desligamento de ambientes não produtivos  
+
+---
+
+## 🧪 Engenharia de Dados
+
+### Fluxo de dados
+
+```text
+Webhook → N8N → Fila → Worker → Banco
 ```
 
----
+### Evolução planejada
 
-## ⚠️ Observação
-
-<div style="background-color:#ff6600; color:white; padding:10px; border-radius:6px;">
-Certifique-se de configurar corretamente o environment <strong>dev</strong> e os secrets AWS no GitHub.
-</div>
+- Armazenamento histórico em S3  
+- Separação entre dados operacionais e analíticos  
 
 ---
 
-<div style="text-align:center; margin-top:20px;">
-  <strong>💻 DigiFusion | Portfólio Profissional</strong>
-</div>
+## 🚀 Ambientes
+
+| Ambiente | Arquitetura |
+|---------|------------|
+| Dev | POC |
+| Staging | Alta Disponibilidade |
+| Produção | Escalável |
+
+---
+
+## 🎯 Diferenciais
+
+- Arquitetura evolutiva e escalável  
+- Segurança sem exposição via SSH  
+- Automação completa com Terraform  
+- Governança de custos (FinOps)  
+- Alta confiabilidade (SRE)  
+- Separação clara de responsabilidades por camada  
+
+---
+
+## 🧭 Conclusão
+
+O DigiFusion-N8N demonstra a implementação de uma arquitetura moderna na nuvem, com foco em:
+
+- Eficiência operacional  
+- Segurança  
+- Escalabilidade  
+- Controle de custos  
+- Resiliência  
+
+---
+
+## 📌 Frase do Projeto
+
+> "Do simples ao escalável: evolução guiada por automação, segurança e eficiência."
+---
+
