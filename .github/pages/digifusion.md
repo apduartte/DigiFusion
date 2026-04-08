@@ -1,93 +1,137 @@
-
-# DigiFusion – CI/CD & Terraform 🚀
-
-<p align="center">
-  <strong>Automação segura, auditável e escalável de infraestrutura em AWS</strong><br>
-  DigiFusion integra <strong>Terraform, AWS e GitHub Actions</strong> para pipelines confiáveis, visíveis e auditáveis.
-</p>
+<div style="background-color:#0a0a23; color:white; padding:25px; border-radius:12px; text-align:center;">
+  <h1 style="color:#ff6600;">DigiFusion – CI/CD & Terraform</h1>
+  <p style="font-size:18px; color:#cccccc;">Portfólio profissional com padrões FAANG</p>
+</div>
 
 ---
 
 ## 🌟 Status do Projeto
 
-<p align="center">
-  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CI?style=for-the-badge&logo=github&color=00C853" alt="CI">
-  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CD?style=for-the-badge&logo=github&color=2979FF" alt="CD">
-  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Lint?style=for-the-badge&logo=terraform&color=FF6D00" alt="Lint">
-  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Security?style=for-the-badge&logo=security&color=D50000" alt="Security">
-  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Terraform%20Fmt?style=for-the-badge&logo=terraform&color=00BFA5" alt="Terraform fmt">
-  <img src="https://img.shields.io/github/workflow/status/apduartte/DigiFusion/Terraform%20Validate?style=for-the-badge&logo=terraform&color=64DD17" alt="Terraform validate">
-</p>
+![CI](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CI?style=for-the-badge)
+![CD](https://img.shields.io/github/workflow/status/apduartte/DigiFusion/CD?style=for-the-badge)
 
 ---
 
 ## 🌐 Visão Geral
 
-DigiFusion é uma **blueprint DevOps de alto nível**, construída para:  
-
-- **Controle de ambientes isolados**: DEV, QA, PROD  
-- **CI/CD completo**: integração contínua, deploy seguro, rollback automático  
-- **SRE avançado**: monitoramento, alertas e observabilidade  
-- **Documentação UX + SEO**: clara, indexável e orientada a recrutadores FAANG  
-
-> **Objetivo:** criar infraestrutura confiável e escalável, com padrões de engenharia de nível sênior.
+> 🚀 Pipeline CI/CD com Terraform + AWS + GitHub Actions  
+> 🔐 Segurança via OIDC (sem credenciais hardcoded)  
+> 📦 Infraestrutura como código (IaC)
 
 ---
 
-## 🏗️ Arquitetura do Pipeline
+## 🏗️ Arquitetura
 
 ```mermaid
 flowchart LR
-    A[Pull Request] -->|CI Terraform| B[Validate & Plan]
-    B --> C[Review & Merge]
-    C --> D[Deploy Dev / Prod]
-    D --> E[Monitoring & Alerts]
-Destaques:
-Modularidade e segurança no deploy
-Auditabilidade completa
-Observabilidade e alertas integrados
-📌 Como Usar
-Clone o repositório:
-Bash
+  A[Pull Request] -->|CI| B[Validate]
+  B --> C[Merge]
+  C --> D[CD]
+  D --> E[AWS OIDC]
+  E --> F[Terraform Apply]
+```
+
+---
+
+## 📂 Detalhamento Técnico
+
+<details>
+<summary><strong>🔧 Pipeline CI</strong></summary>
+
+- terraform fmt  
+- terraform validate  
+- terraform plan  
+- Executado em Pull Requests  
+
+</details>
+
+---
+
+<details>
+<summary><strong>🚀 Pipeline CD</strong></summary>
+
+- Trigger: push na main  
+- Autenticação: AWS OIDC  
+- Deploy automático com terraform apply  
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔐 Segurança (OIDC)</strong></summary>
+
+- Sem uso de Access Key  
+- Autenticação via GitHub → AWS  
+- Role com trust policy OIDC  
+- Princípio de menor privilégio  
+
+</details>
+
+---
+
+<details>
+<summary><strong>🏗️ Infraestrutura Terraform</strong></summary>
+
+- VPC  
+- Subnets  
+- Security Groups  
+- RDS  
+- S3  
+
+</details>
+
+---
+
+## 📌 Skills Demonstradas
+
+<div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px;">
+
+<div style="background:#1a1a40; padding:10px; border-radius:6px;">Terraform Modular</div>
+<div style="background:#1a1a40; padding:10px; border-radius:6px;">CI/CD</div>
+<div style="background:#1a1a40; padding:10px; border-radius:6px;">AWS OIDC</div>
+<div style="background:#1a1a40; padding:10px; border-radius:6px;">Git Flow</div>
+
+</div>
+
+---
+
+## 🚀 Roadmap
+
+<details>
+<summary><strong>📈 Expansão futura</strong></summary>
+
+- Ambiente PROD com approval  
+- Integração com n8n  
+- Observabilidade (logs + metrics)  
+- Backup automatizado  
+
+</details>
+
+---
+
+## ▶️ Execução Local
+
+```bash
 git clone https://github.com/apduartte/DigiFusion.git
-Acesse o diretório Terraform:
-Bash
 cd DigiFusion/bia/infra/terraform
-Inicialize Terraform:
-Bash
+
 terraform init
-Valide e aplique o plano:
-Bash
 terraform validate
 terraform plan
 terraform apply -auto-approve
-💡 Notas Importantes
-Configure GitHub Actions com environment: dev
-Configure corretamente os secrets AWS
-Pipelines garantem auditabilidade, confiabilidade e consistência
-💻 Publicação
-Branches main ou gh-pages para GitHub Pages
-Deploy automatizado com pipelines garantem reliability e compliance
-🔧 Tecnologias e Boas Práticas
-Área
-Ferramentas / Práticas
-Infraestrutura
-Terraform, AWS
-CI/CD
-GitHub Actions
-Segurança
-Secrets, IAM, Policies, Lint
-Observabilidade
-CloudWatch, Alerts, Logging
-Código & Qualidade
-Terraform fmt, validate
-UX / SEO
-Documentação clara, badges, headings
-🚀 Por que DigiFusion?
-Demonstra padrões DevOps de nível FAANG
-Garantia de infraestrutura auditável e escalável
-Treina práticas avançadas de Terraform, CI/CD e SRE
-Serve como projeto referência para recrutadores e profissionais de DevOps
-�
-DigiFusion é mais que código: é **uma blueprint de excelência DevOps** pronta para produção, auditável e escalável. 
 ```
+
+---
+
+## ⚠️ Observação
+
+<div style="background-color:#ff6600; color:white; padding:10px; border-radius:6px;">
+Certifique-se de configurar corretamente o environment <strong>dev</strong> e os secrets AWS no GitHub.
+</div>
+
+---
+
+<div style="text-align:center; margin-top:20px;">
+  <strong>💻 DigiFusion | Portfólio Profissional</strong>
+</div>
