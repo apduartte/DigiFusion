@@ -1,3 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>DigiFusion-N8N | Projeto Educacional AWS</title>
+
+  <meta name="description" content="Projeto educacional desenvolvido no curso de formação AWS 5.0, demonstrando arquitetura cloud com AWS, Terraform, DevOps, SRE e FinOps.">
+
+  <meta name="keywords" content="AWS, DevOps, Terraform, N8N, SRE, Projeto Educacional, Arquitetura Cloud, CI/CD">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="DigiFusion-N8N | Projeto Educacional AWS">
+  <meta property="og:description" content="Arquitetura cloud desenvolvida como desafio técnico no curso AWS 5.0.">
+  <meta property="og:type" content="website">
+
+  <!-- SEO Estruturado -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "DigiFusion-N8N",
+    "description": "Projeto educacional de arquitetura cloud desenvolvido no curso AWS 5.0",
+    "educationalUse": "study project"
+  }
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(90deg, #020617, #1e293b);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #38bdf8;
+    }
+
+    h2 {
+      color: #22c55e;
+      margin-top: 40px;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .disclaimer {
+      background: #7c2d12;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
 🚀 DigiFusion-N8N</h1> <h2>Arquitetura evolutiva para automação de workflows com N8N na AWS</h2> <div class="badges"> <img src="https://img.shields.io/badge/AWS-Cloud-%23FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" alt="AWS Badge"> <img src="https://img.shields.io/badge/Terraform-IaC-%237B42BC?style=for-the-badge&logo=terraform" alt="Terraform Badge"> <img src="https://img.shields.io/badge/Docker-Container-%230db7ed?style=for-the-badge&logo=docker" alt="Docker Badge"> </div> </header>
 
 <section>
