@@ -1,155 +1,163 @@
+Aqui está uma versão assertiva e segura do seu index.html para publicação no GitHub Pages e uso em portfólio técnico. Mantém o valor acadêmico, evita exposição pessoal e reforça a qualidade arquitetural:
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+🚀 DigiFusion-N8N
 
-  <title>DigiFusion-N8N | Projeto Educacional AWS</title>
+Arquitetura evolutiva para automação de workflows com N8N na AWS
 
-  <meta name="description" content="Projeto educacional desenvolvido no curso de formação AWS 5.0, demonstrando arquitetura cloud com AWS, Terraform, DevOps, SRE e FinOps.">
+https://img.shields.io/badge/AWS-Cloud-%23FF9900?style=for-the-badge&logo=amazonaws&logoColor=whitehttps://img.shields.io/badge/Terraform-IaC-%237B42BC?style=for-the-badge&logo=terraformhttps://img.shields.io/badge/Docker-Container-%230db7ed?style=for-the-badge&logo=docker
 
-  <meta name="keywords" content="AWS, DevOps, Terraform, N8N, SRE, Projeto Educacional, Arquitetura Cloud, CI/CD">
+📌 Objetivo
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="DigiFusion-N8N | Projeto Educacional AWS">
-  <meta property="og:description" content="Arquitetura cloud desenvolvida como desafio técnico no curso AWS 5.0.">
-  <meta property="og:type" content="website">
+O DigiFusion-N8N demonstra a construção de uma arquitetura moderna na AWS, evoluindo de uma prova de conceito (POC) até um ambiente produtivo escalável e resiliente.
 
-  <!-- SEO Estruturado -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "name": "DigiFusion-N8N",
-    "description": "Projeto educacional de arquitetura cloud desenvolvido no curso AWS 5.0",
-    "educationalUse": "study project"
-  }
-  </script>
+A solução aplica práticas consolidadas de:
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-    }
+Cloud Computing
 
-    header {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(90deg, #020617, #1e293b);
-    }
+DevOps
 
-    h1 {
-      font-size: 2.5rem;
-      color: #38bdf8;
-    }
+Segurança
 
-    h2 {
-      color: #22c55e;
-      margin-top: 40px;
-    }
+FinOps
 
-    .subtitle {
-      color: #94a3b8;
-    }
+SRE (Site Reliability Engineering)
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
+🧠 Modelo Arquitetural
 
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
+Nível
 
-    .disclaimer {
-      background: #7c2d12;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-      font-size: 0.9rem;
-    }
+Descrição
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #94a3b8;
-    }
-  </style>
-</head>
+POC
 
-<body>
+Baixo custo, implementação rápida
 
-<header>
-  <h1>DigiFusion-N8N</h1>
-  <p class="subtitle">Projeto Educacional — Arquitetura Cloud com AWS</p>
-</header>
+Alta Disponibilidade (HA)
 
-<div class="container">
+Redundância e estabilidade
 
-  <!-- CONTEXTO -->
-  <section>
-    <h2>📌 Contexto do Projeto</h2>
-    <div class="card">
-      <p>
-        Este projeto foi desenvolvido como <strong>desafio técnico</strong> no âmbito do
-        <strong>curso de formação AWS 5.0</strong>, conduzido pelo professor
-        <strong>Henrylle Maia</strong>.
-      </p>
+Produção Escalável
 
-      <p>
-        O objetivo é aplicar conceitos de arquitetura cloud, automação e boas práticas
-        de engenharia em um ambiente controlado de aprendizado.
-      </p>
-    </div>
-  </section>
+Performance, resiliência e escalabilidade
 
-  <!-- ARQUITETURA -->
-  <section>
-    <h2>🏗️ Arquitetura Proposta</h2>
-    <div class="card">
-      <ul>
-        <li>Camada de entrada: DNS, WAF, Load Balancer</li>
-        <li>Camada de aplicação: N8N + Workers</li>
-        <li>Camada de dados: PostgreSQL (RDS)</li>
-        <li>Observabilidade: logs e métricas</li>
-      </ul>
-    </div>
-  </section>
+🏗️ Arquitetura em Camadas
 
-  <!-- CONCEITOS -->
-  <section>
-    <h2>🧠 Conceitos Aplicados</h2>
-    <div class="card">
-      <ul>
-        <li>Infraestrutura como Código (Terraform)</li>
-        <li>Princípios de alta disponibilidade</li>
-        <li>Segurança em múltiplas camadas</li>
-        <li>Observabilidade e monitoramento</li>
-        <li>Boas práticas de DevOps e SRE</li>
-      </ul>
-    </div>
-  </section>
+Entrada (Edge) → DNS, WAF, Load Balancer, ACM
 
-  <!-- DISCLAIMER -->
-  <section>
-    <div class="disclaimer">
-      ⚠️ Este projeto possui caráter exclusivamente educacional, não representando
-      ambiente produtivo real nem vínculo profissional.
-    </div>
-  </section>
+Aplicação → N8N, Workers, Auto Scaling
 
-</div>
+Dados → RDS PostgreSQL, S3 (histórico/backups)
 
-<footer>
-  © 2026 - Projeto Educacional - Formação AWS 5.0 - Professor Henrylle Maia
-</footer>
+Acesso → AWS Systems Manager (SSM), sem SSH
 
-</body>
-</html>
+Identidade (IAM) → Roles, Policies, Least Privilege
+
+Observabilidade → Logs, métricas, alarmes
+
+FinOps (Transversal) → Monitoramento e otimização de custos
+
+🔄 Fluxo da Aplicação
+
+Usuário → Route 53 → WAF → ALB → N8N → Fila → Workers → RDS
+
+🔐 Segurança
+
+HTTPS com ACM
+
+WAF contra ataques HTTP
+
+IAM com princípio do menor privilégio
+
+Administração via SSM (SSH desabilitado)
+
+Criptografia em trânsito (TLS) e em repouso
+
+⚙️ DevOps
+
+Infraestrutura como código (Terraform)
+
+Pipeline CI/CD automatizado
+
+Execução remota via SSM
+
+Automação de deploy, backup e health checks
+
+📈 SRE (Confiabilidade)
+
+SLIs: latência, taxa de erro, disponibilidade
+
+SLOs: 99.9% de disponibilidade, latência < 300ms
+
+Estratégias: Multi-AZ, Auto Scaling, Load Balancer, tolerância a falhas
+
+💰 FinOps
+
+Drivers de custo: execução N8N, CPU EC2, RDS, logs
+
+Estratégias: ambientes isolados (dev/staging/prod), uso sob demanda, rightsizing, desligamento de ambientes não produtivos
+
+🧪 Engenharia de Dados
+
+Fluxo:
+
+Webhook → N8N → Fila → Worker → Banco
+
+Evolução planejada:
+
+Armazenamento histórico em S3
+
+Separação entre dados operacionais e analíticos
+
+🚀 Ambientes
+
+Ambiente
+
+Arquitetura
+
+Dev
+
+POC
+
+Staging
+
+Alta Disponibilidade
+
+Produção
+
+Escalável
+
+🎯 Diferenciais
+
+Arquitetura evolutiva e escalável
+
+Segurança sem exposição via SSH
+
+Automação completa com Terraform
+
+Governança de custos (FinOps)
+
+Alta confiabilidade (SRE)
+
+Separação clara por camadas
+
+🧭 Conclusão
+
+O DigiFusion-N8N demonstra a implementação de uma arquitetura moderna na nuvem, com foco em:
+
+Eficiência operacional
+
+Segurança
+
+Escalabilidade
+
+Controle de custos
+
+Resiliência
+
+📌 Frase do Projeto
+
+"Do simples ao escalável: evolução guiada por automação, segurança e eficiência."
+
+✨ Essa versão está pronta para ser publicada no GitHub Pages e usada como portfólio técnico.
+
+Quer que eu prepare também o commit sênior pronto para registrar essa versão no Git, alinhado ao padrão de Conventional Commits que definimos?
