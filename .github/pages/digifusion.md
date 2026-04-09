@@ -1,226 +1,139 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>DigiFusion-N8N | Projeto Educacional AWS</title>
+<title>DigiFusion-N8N | Arquitetura AWS</title>
 
-  <meta name="description" content="Projeto educacional desenvolvido no curso de formação AWS 5.0, demonstrando arquitetura cloud com AWS, Terraform, DevOps, SRE e FinOps.">
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #020617;
+    color: #e2e8f0;
+}
 
-  <meta name="keywords" content="AWS, DevOps, Terraform, N8N, SRE, Projeto Educacional, Arquitetura Cloud, CI/CD">
+header {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(90deg, #020617, #0f172a);
+}
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="DigiFusion-N8N | Projeto Educacional AWS">
-  <meta property="og:description" content="Arquitetura cloud desenvolvida como desafio técnico no curso AWS 5.0.">
-  <meta property="og:type" content="website">
+h1 {
+    color: #38bdf8;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
 
-  <!-- SEO Estruturado -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "name": "DigiFusion-N8N",
-    "description": "Projeto educacional de arquitetura cloud desenvolvido no curso AWS 5.0",
-    "educationalUse": "study project"
-  }
-  </script>
+.subtitle {
+    color: #94a3b8;
+    font-size: 1rem;
+}
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-    }
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
 
-    header {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(90deg, #020617, #1e293b);
-    }
+.section-title {
+    color: #22c55e;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
 
-    h1 {
-      font-size: 2.5rem;
-      color: #38bdf8;
-    }
+.card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
 
-    h2 {
-      color: #22c55e;
-      margin-top: 40px;
-    }
+ul {
+    padding-left: 20px;
+}
 
-    .subtitle {
-      color: #94a3b8;
-    }
+pre {
+    background: #020617;
+    padding: 15px;
+    border-radius: 8px;
+    color: #38bdf8;
+    overflow-x: auto;
+}
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
+.highlight {
+    background: #7c2d12;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+}
 
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-
-    .disclaimer {
-      background: #7c2d12;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-      font-size: 0.9rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #94a3b8;
-    }
-  </style>
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+    font-size: 0.8rem;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-🚀 DigiFusion-N8N</h1> <h2>Arquitetura evolutiva para automação de workflows com N8N na AWS</h2> <div class="badges"> <img src="https://img.shields.io/badge/AWS-Cloud-%23FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" alt="AWS Badge"> <img src="https://img.shields.io/badge/Terraform-IaC-%237B42BC?style=for-the-badge&logo=terraform" alt="Terraform Badge"> <img src="https://img.shields.io/badge/Docker-Container-%230db7ed?style=for-the-badge&logo=docker" alt="Docker Badge"> </div> </header>
+    <h1>🚀 DigiFusion-N8N</h1>
+    <p class="subtitle">Projeto Educacional — Arquitetura Cloud com AWS</p>
+</header>
 
-<section>
-    <h3>📌 Objetivo</h3>
-    <p>O <strong>DigiFusion-N8N</strong> demonstra a construção de uma arquitetura moderna na AWS, evoluindo de uma <strong>prova de conceito (POC)</strong> até um ambiente <strong>produtivo escalável e resiliente</strong>.</p>
-    <p>A solução aplica práticas consolidadas de:</p>
-    <ul>
-        <li>Cloud Computing</li>
-        <li>DevOps</li>
-        <li>Segurança</li>
-        <li>FinOps</li>
-        <li>SRE (Site Reliability Engineering)</li>
-    </ul>
-</section>
+<div class="container">
 
-<section>
-    <h3>🧠 Modelo Arquitetural</h3>
-    <table>
-        <thead>
-            <tr><th>Nível</th><th>Descrição</th></tr>
-        </thead>
-        <tbody>
-            <tr><td><strong>POC</strong></td><td>Baixo custo, implementação rápida</td></tr>
-            <tr><td><strong>Alta Disponibilidade (HA)</strong></td><td>Redundância e estabilidade</td></tr>
-            <tr><td><strong>Produção Escalável</strong></td><td>Performance, resiliência e escalabilidade</td></tr>
-        </tbody>
-    </table>
-</section>
+    <div class="section-title">📌 Contexto do Projeto</div>
+    <div class="card">
+        <p>Este projeto foi desenvolvido como desafio técnico no curso de formação AWS.</p>
+        <p>O objetivo é aplicar conceitos de arquitetura cloud, automação e boas práticas de engenharia em um ambiente controlado de aprendizado.</p>
+    </div>
 
-<section>
-    <h3>🏗️ Arquitetura em Camadas</h3>
-    <ol>
-        <li><strong>Entrada (Edge)</strong> → DNS, WAF, Load Balancer, ACM</li>
-        <li><strong>Aplicação</strong> → N8N, Workers, Auto Scaling</li>
-        <li><strong>Dados</strong> → RDS PostgreSQL, S3 (histórico/backups)</li>
-        <li><strong>Acesso</strong> → AWS Systems Manager (SSM), sem SSH</li>
-        <li><strong>Identidade (IAM)</strong> → Roles, Policies, Least Privilege</li>
-        <li><strong>Observabilidade</strong> → Logs, métricas, alarmes</li>
-        <li><strong>FinOps (Transversal)</strong> → Monitoramento e otimização de custos</li>
-    </ol>
-</section>
+    <div class="section-title">🏗️ Arquitetura Proposta</div>
+    <div class="card">
+        <ul>
+            <li>Camada de entrada: DNS, WAF, Load Balancer</li>
+            <li>Camada de aplicação: N8N + Workers</li>
+            <li>Camada de dados: PostgreSQL (RDS)</li>
+            <li>Armazenamento: S3 (backup e histórico)</li>
+        </ul>
+    </div>
 
-<section>
-    <h3>🔄 Fluxo da Aplicação</h3>
-    <pre>Usuário → Route 53 → WAF → ALB → N8N → Fila → Workers → RDS</pre>
-</section>
+    <div class="section-title">🧠 Conceitos Aplicados</div>
+    <div class="card">
+        <ul>
+            <li>Infraestrutura como Código (Terraform)</li>
+            <li>Princípios de alta disponibilidade</li>
+            <li>Segurança em múltiplas camadas</li>
+            <li>Observabilidade e monitoramento</li>
+            <li>Boas práticas de DevOps e SRE</li>
+        </ul>
+    </div>
 
-<section>
-    <h3>🔐 Segurança</h3>
-    <ul>
-        <li>HTTPS com ACM</li>
-        <li>WAF contra ataques HTTP</li>
-        <li>IAM com princípio do menor privilégio</li>
-        <li>Administração via SSM (SSH desabilitado)</li>
-        <li>Criptografia em trânsito (TLS) e em repouso</li>
-    </ul>
-</section>
+    <div class="section-title">🔄 Fluxo da Aplicação</div>
+    <div class="card">
+        <pre>Usuário → Route53 → WAF → ALB → N8N → Fila → Workers → RDS</pre>
+    </div>
 
-<section>
-    <h3>⚙️ DevOps</h3>
-    <ul>
-        <li>Infraestrutura como código (Terraform)</li>
-        <li>Pipeline CI/CD automatizado</li>
-        <li>Execução remota via SSM</li>
-        <li>Automação de deploy, backup e health checks</li>
-    </ul>
-</section>
+    <div class="highlight">
+        ⚠️ Este projeto possui caráter exclusivamente educacional, não representando ambiente produtivo real sem validação profissional.
+    </div>
 
-<section>
-    <h3>📈 SRE (Confiabilidade)</h3>
-    <ul>
-        <li><strong>SLIs</strong>: latência, taxa de erro, disponibilidade</li>
-        <li><strong>SLOs</strong>: 99.9% de disponibilidade, latência &lt; 300ms</li>
-        <li>Estratégias: Multi-AZ, Auto Scaling, Load Balancer, tolerância a falhas</li>
-    </ul>
-</section>
+</div>
 
-<section>
-    <h3>💰 FinOps</h3>
-    <ul>
-        <li>Drivers de custo: execução N8N, CPU EC2, RDS, logs</li>
-        <li>Estratégias: ambientes isolados (dev/staging/prod), uso sob demanda, rightsizing, desligamento de ambientes não produtivos</li>
-    </ul>
-</section>
+<footer>
+    © 2026 • Projeto Educacional AWS - Curso de Formação AWS 5.0 - Prof. Henrylle Maia
+</footer>
 
-<section>
-    <h3>🧪 Engenharia de Dados</h3>
-    <p>Fluxo:</p>
-    <pre>Webhook → N8N → Fila → Worker → Banco</pre>
-    <p>Evolução planejada:</p>
-    <ul>
-        <li>Armazenamento histórico em S3</li>
-        <li>Separação entre dados operacionais e analíticos</li>
-    </ul>
-</section>
-
-<section>
-    <h3>🚀 Ambientes</h3>
-    <table>
-        <thead>
-            <tr><th>Ambiente</th><th>Arquitetura</th></tr>
-        </thead>
-        <tbody>
-            <tr><td>Dev</td><td>POC</td></tr>
-            <tr><td>Staging</td><td>Alta Disponibilidade</td></tr>
-            <tr><td>Produção</td><td>Escalável</td></tr>
-        </tbody>
-    </table>
-</section>
-
-<section>
-    <h3>🎯 Diferenciais</h3>
-    <ul>
-        <li>Arquitetura evolutiva e escalável</li>
-        <li>Segurança sem exposição via SSH</li>
-        <li>Automação completa com Terraform</li>
-        <li>Governança de custos (FinOps)</li>
-        <li>Alta confiabilidade (SRE)</li>
-        <li>Separação clara por camadas</li>
-    </ul>
-</section>
-
-<section>
-    <h3>🧭 Conclusão</h3>
-    <p>O DigiFusion-N8N demonstra a implementação de uma arquitetura moderna na nuvem, com foco em:</p>
-    <ul>
-        <li>Eficiência operacional</li>
-        <li>Segurança</li>
-        <li>Escalabilidade</li>
-        <li>Controle de custos</li>
-        <li>Resiliência</li>
-    </ul>
-</section>
-
-<section>
-    <h3>📌 Frase do Projeto</h3>
-    <blockquote>"Do simples ao escalável: evolução guiada por automação, segurança e eficiência."</blockquote>
-</section>
+</body>
+</html>
+```
