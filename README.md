@@ -1,6 +1,6 @@
 # 👩‍💻 Ana Duarte
 
-**Software Engineer | Backend Java | AWS Cloud | Distributed Systems**
+** Backend Engineer building scalable systems on AWS **
 
 📍 São Paulo – Brazil  
 📧 apduartte@gmail.com  
