@@ -1,21 +1,22 @@
-resource "aws_instance" "this" {
-  ami                    = var.ami_id
-  instance_type          = var.instance_type
-  subnet_id              = var.subnet_id
-  vpc_security_group_ids = [var.security_group_id]
-  iam_instance_profile   = var.instance_profile
-  user_data              = var.user_data
+resource "aws_instance" "n8n" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
 
-  tags = var.tags
-}
+  subnet_id = var.subnet_id
 
-output "instance_id" {
-  value       = aws_instance.this.id
-  description = "ID da instância EC2"
-}
+  vpc_security_group_ids = var.vpc_security_group_ids
 
-output "private_ip" {
-  value       = aws_instance.this.private_ip
-  description = "IP privado da instância EC2"
+  key_name = var.key_name
+
+  user_data = file("${path.module}/user_data.sh")
+
+  iam_instance_profile = var.ssm_instance_profile_name != "" ? var.ssm_instance_profile_name : null
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "n8n-instance"
+    }
+  )
 }
 
