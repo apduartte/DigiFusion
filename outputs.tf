@@ -19,6 +19,7 @@ output "ec2_sg_id" {
 }
 
 output "n8n_public_dns" {
-  value       = aws_instance.n8n_instance.public_dns
+  value       = aws_instance.n8n.public_dns
   description = "DNS público da instância N8N"
 }
+
