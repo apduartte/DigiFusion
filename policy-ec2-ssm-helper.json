@@ -1,0 +1,60 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "EC2ReadPermissions",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeIamInstanceProfileAssociations",
+        "ec2:AssociateIamInstanceProfile",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeImages"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IAMReadPermissions",
+      "Effect": "Allow",
+      "Action": [
+        "iam:ListInstanceProfiles",
+        "iam:GetInstanceProfile"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "PassRoleToEC2",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::768150687367:role/role-acesso-ssm-digifusion",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": "ec2.amazonaws.com"
+        }
+      }
+    },
+    {
+      "Sid": "SSMSessionManager",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:DescribeInstanceInformation",
+        "ssm:StartSession",
+        "ssm:SendCommand",
+        "ssm:TerminateSession",
+        "ssm:GetCommandInvocation"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "SSMMessages",
+      "Effect": "Allow",
+      "Action": [
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel",
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
