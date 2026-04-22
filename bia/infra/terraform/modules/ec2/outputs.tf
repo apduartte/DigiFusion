@@ -1,5 +1,7 @@
-output "n8n_public_ip" {
-  description = "Public IP of the n8n EC2 instance"
-  value       = aws_instance.n8n_instance.public_ip
+output "public_dns" {
+  value = aws_instance.this.public_dns
 }
 
+output "public_ip" {
+  value = aws_instance.this.public_ip
+}

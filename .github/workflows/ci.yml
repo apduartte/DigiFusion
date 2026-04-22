@@ -13,21 +13,32 @@ jobs:
       run:
         working-directory: bia/infra/terraform
 
+    env:
+      TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
+      TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
+
     steps:
-      # 1️⃣ Clona o repositório
       - uses: actions/checkout@v4
 
-      # 2️⃣ Setup Terraform
       - uses: hashicorp/setup-terraform@v3
 
-      # 3️⃣ Inicializa Terraform
-      - run: terraform init -input=false
+      - name: Create Terraform plugin cache dir
+        run: mkdir -p $TF_PLUGIN_CACHE_DIR
 
-      # 4️⃣ Formatação do código Terraform
-      - run: terraform fmt -check -diff
+      - name: Cache Terraform plugins
+        uses: actions/cache@v3
+        with:
+          path: .terraform.d/plugin-cache
+          key: terraform-${{ runner.os }}-${{ hashFiles('bia/infra/terraform/.terraform.lock.hcl') }}
 
-      # 5️⃣ Validação da configuração Terraform
-      - run: terraform validate
+      - name: Terraform Init
+        run: terraform init -input=false -reconfigure
 
-      # 6️⃣ Gera plano de execução
-      - run: terraform plan -no-color
+      - name: Terraform Format Check
+        run: terraform fmt -check -diff
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -input=false -no-color

@@ -15,9 +15,20 @@ jobs:
       run:
         working-directory: bia/infra/terraform
 
+    env:
+      TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: hashicorp/setup-terraform@v3
+
+      # 🚀 Cache (CRÍTICO pra performance)
+      - name: Cache Terraform
+        uses: actions/cache@v3
+        with:
+          path: ~/.terraform.d/plugin-cache
+          key: terraform-${{ runner.os }}-${{ hashFiles('**/.terraform.lock.hcl') }}
 
       - name: AWS OIDC
         uses: aws-actions/configure-aws-credentials@v4
@@ -26,4 +37,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - run: terraform init -input=false
-      - run: terraform apply -auto-approve
+
+      # 👀 opcional, mas recomendado
+      - run: terraform plan -input=false -out=tfplan
+
+      - run: terraform apply -auto-approve -input=false tfplan

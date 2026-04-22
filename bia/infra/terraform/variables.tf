@@ -1,52 +1,68 @@
 variable "region" {
-  type = string
+  description = "AWS region"
+  type        = string
+  default     = "us-east-1"
 }
 
 variable "environment" {
-  type = string
+  type        = string
+  description = "Environment name (dev/staging/prod)"
 }
 
+# -------------------------
+# NETWORK (VPC MODULE)
+# -------------------------
 variable "vpc_cidr" {
-  type = string
+  type        = string
+  description = "CIDR block for VPC"
 }
 
 variable "public_subnet_cidrs" {
-  type = list(string)
+  type        = list(string)
+  description = "List of public subnet CIDRs"
 }
 
 variable "private_subnet_cidrs" {
-  type = list(string)
+  type        = list(string)
+  description = "List of private subnet CIDRs"
 }
 
-variable "tags" {
-  type    = map(string)
-  default = {}
+variable "domain_name" {
+  type        = string
+  description = "Base domain used for ACM certificate and DNS (e.g. example.com)"
 }
 
+# -------------------------
+# COMPUTE (EC2 MODULE)
+# -------------------------
 variable "ami_id" {
-  type = string
+  type        = string
+  description = "AMI ID for EC2 instance"
 }
 
 variable "instance_type" {
-  type = string
+  type        = string
+  description = "EC2 instance type"
+  default     = "t3.micro"
 }
 
 variable "key_name" {
-  type    = string
-  default = null
-}
-
-variable "n8n_password" {
-  type      = string
-  sensitive = true
+  type        = string
+  description = "SSH key name for EC2 access (optional if using SSM)"
+  default     = null
 }
 
 variable "ssm_instance_profile_name" {
-  type    = string
-  default = ""
+  type        = string
+  description = "IAM instance profile name for SSM access (recommended instead of SSH)"
+  default     = null
 }
 
-variable "vpc_id" {
-  type    = string
-  default = null
+# -------------------------
+# GLOBAL TAGS
+# -------------------------
+variable "tags" {
+  type        = map(string)
+  description = "Common tags applied to all resources"
+  default     = {}
 }
