@@ -13,32 +13,31 @@ jobs:
       run:
         working-directory: bia/infra/terraform
 
-    env:
-      TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
-      TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: hashicorp/setup-terraform@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
-      - name: Create Terraform plugin cache dir
-        run: mkdir -p $TF_PLUGIN_CACHE_DIR
-
-      - name: Cache Terraform plugins
+      # 🚀 Cache de plugins
+      - name: Cache Terraform
         uses: actions/cache@v3
         with:
-          path: .terraform.d/plugin-cache
-          key: terraform-${{ runner.os }}-${{ hashFiles('bia/infra/terraform/.terraform.lock.hcl') }}
+          path: ~/.terraform.d/plugin-cache
+          key: terraform-${{ runner.os }}-${{ hashFiles('**/.terraform.lock.hcl') }}
 
       - name: Terraform Init
-        run: terraform init -input=false -reconfigure
+        run: terraform init -input=false
 
-      - name: Terraform Format Check
+      - name: Terraform Fmt
         run: terraform fmt -check -diff
 
       - name: Terraform Validate
         run: terraform validate
 
+      # tfvars e env correto
       - name: Terraform Plan
-        run: terraform plan -input=false -no-color
+        env:
+          TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
+        run: terraform plan -input=false -no-color -var-file="terraform.tfvars"
