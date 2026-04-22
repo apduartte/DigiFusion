@@ -1,39 +1,27 @@
-variable "region" {
-  description = "Região AWS"
-  type        = string
-  default     = "us-east-1"
-}
-
 variable "environment" {
-  description = "Nome do ambiente"
   type        = string
-  default     = "dev"
+  description = "Environment name (dev/staging/prod)"
 }
 
 variable "vpc_cidr" {
-  description = "CIDR da VPC"
   type        = string
-  default     = "10.0.0.0/16"
+  description = "CIDR block for VPC"
 }
 
 variable "public_subnet_cidrs" {
-  description = "Lista de CIDRs para subnets públicas"
-  type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+  type = list(string)
 }
 
 variable "private_subnet_cidrs" {
-  description = "Lista de CIDRs para subnets privadas"
-  type        = list(string)
-  default     = ["10.0.11.0/24", "10.0.12.0/24"]
+  type = list(string)
 }
 
 variable "tags" {
-  description = "Tags padrão"
-  type        = map(string)
-  default = {
-    Owner       = "Ana"
-    Environment = "dev"
-  }
+  type    = map(string)
+  default = {}
+}
+variable "domain_name" {
+  description = "Nome de domínio para o certificado ACM"
+  type        = string
 }
 
