@@ -6,11 +6,15 @@
 *.tfstate
 *.tfstate.*
 *.tfplan
-
-# Ignore arquivos sensíveis
+*.tfvars
 *.auto.tfvars
+
+# Sensitive Terraform files
 terraform.tfvars
 prod.tfvars
+
+# AWS
+.aws/
 
 # OS
 .DS_Store
