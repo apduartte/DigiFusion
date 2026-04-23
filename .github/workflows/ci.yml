@@ -1,5 +1,4 @@
 name: CI Terraform
-
 on:
   pull_request:
   push:
