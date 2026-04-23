@@ -1,201 +1,189 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+Boa — aqui vale um ajuste direto: README de alto nível DevOps **não deve ser HTML**. Em engenharia sênior, o padrão esperado no GitHub é **Markdown limpo, escaneável e orientado a arquitetura + operação**.
 
-  <title>Ana Duarte | Backend Engineer | AWS & Distributed Systems</title>
+Segue uma versão **nível sênior real (portfólio + engenharia + operação)**:
 
-  <meta name="description" content="Engenheira de Software com foco em backend, AWS, sistemas distribuídos e arquitetura orientada a eventos. Experiência com Terraform, microsserviços e sistemas escaláveis.">
+---
 
-  <meta name="keywords" content="AWS, Backend Engineer, Java, Spring Boot, Terraform, Distributed Systems, Event-Driven Architecture, DevOps">
+# 🚀 DigiFusion Platform
 
-  <meta property="og:title" content="Ana Duarte | Backend Engineer">
-  <meta property="og:description" content="Backend Engineer focada em sistemas distribuídos, AWS e arquitetura orientada a eventos.">
-  <meta property="og:type" content="website">
+**Event-Driven Architecture on AWS | Terraform | Distributed Systems**
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+---
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Inter, sans-serif;
-      background: #0b1220;
-      color: #e5e7eb;
-      line-height: 1.6;
-    }
+## 👩‍💻 Author
 
-    header {
-      padding: 80px 20px;
-      text-align: center;
-      background: #0f172a;
-      border-bottom: 1px solid #1e293b;
-    }
+**Ana Duarte**
+Backend Engineer | AWS | Distributed Systems
 
-    h1 {
-      font-size: 40px;
-      font-weight: 600;
-    }
+Engenharia de software focada em **backend, sistemas distribuídos e arquitetura orientada a eventos**, com ênfase em **infraestrutura como código, resiliência e escalabilidade em cloud**.
 
-    h2 {
-      font-size: 18px;
-      font-weight: 500;
-      color: #60a5fa;
-      margin-top: 10px;
-    }
+---
 
-    .subtitle {
-      max-width: 720px;
-      margin: 20px auto 0;
-      color: #94a3b8;
-      font-size: 15px;
-    }
+## 📌 Overview
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 50px 20px;
-    }
+O **DigiFusion** é uma plataforma baseada em **arquitetura distribuída orientada a eventos**, projetada para:
 
-    section {
-      margin-bottom: 40px;
-    }
+* Alta escalabilidade
+* Baixo acoplamento entre serviços
+* Resiliência a falhas
+* Infraestrutura 100% reproduzível
 
-    .card {
-      background: #111827;
-      border: 1px solid #1f2937;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
+---
 
-    .tag {
-      display: inline-block;
-      font-size: 12px;
-      padding: 4px 8px;
-      background: #1f2937;
-      margin-right: 6px;
-      border-radius: 4px;
-      color: #cbd5e1;
-    }
+## 🏗️ Architecture
 
-    a {
-      color: #60a5fa;
-      text-decoration: none;
-    }
+### 🔹 High-Level Design
 
-    a:hover {
-      text-decoration: underline;
-    }
+* **Event-Driven Architecture**
+* Comunicação assíncrona via filas
+* Processamento desacoplado
+* Infraestrutura modular via Terraform
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      border-top: 1px solid #1e293b;
-      color: #94a3b8;
-      font-size: 13px;
-    }
-  </style>
-</head>
+### 🔹 Core Components
 
-<body>
+| Camada         | Tecnologia  |
+| -------------- | ----------- |
+| Compute        | EC2         |
+| Mensageria     | SQS (+ DLQ) |
+| Banco          | RDS         |
+| Storage        | S3          |
+| Infraestrutura | Terraform   |
+| Container      | Docker      |
 
-<header>
-  <h1>Ana Duarte</h1>
-  <h2>Backend Engineer | AWS | Distributed Systems</h2>
+---
 
-  <p class="subtitle">
-    Engenheira de software com foco em backend, sistemas distribuídos e arquitetura orientada a eventos.
-    Experiência com AWS, Terraform e construção de sistemas escaláveis e resilientes.
-  </p>
-</header>
+## ⚙️ Infrastructure as Code
 
-<div class="container">
+Toda a infraestrutura é gerenciada com **Terraform**, seguindo:
 
-  <section>
-    <h2>Projeto Principal</h2>
+* Estrutura modular (`modules/`)
+* Ambientes isolados (`envs/dev`, `prod`)
+* Reutilização de componentes
+* Versionamento de estado
 
-    <div class="card">
-      <strong>DigiFusion-N8N</strong>
-      <p>
-        Arquitetura distribuída baseada em eventos com AWS SQS, EC2 e automação de infraestrutura via Terraform.
-        Foco em desacoplamento, escalabilidade e resiliência.
-      </p>
+### Estrutura
 
-      <div>
-        <span class="tag">AWS</span>
-        <span class="tag">Event-Driven</span>
-        <span class="tag">Terraform</span>
-        <span class="tag">Docker</span>
-      </div>
+```
+bia/infra/terraform/
+├── modules/
+│   ├── vpc/
+│   ├── ec2/
+│   ├── rds/
+│   ├── security/
+│   └── alb/
+├── envs/
+│   └── dev/
+├── main.tf
+├── variables.tf
+├── outputs.tf
+```
 
-      <p style="margin-top: 12px;">
-        <a href="http://digifusion.apduartte.com.br/" target="_blank">Arquitetura</a> |
-        <a href="https://github.com/apduartte/DigiFusion" target="_blank">Repositório</a>
-      </p>
-    </div>
-  </section>
+---
 
-  <section>
-    <h2>Projeto Técnico</h2>
+## 🔐 Security
 
-    <div class="card">
-      <strong>Fraud Detection System</strong>
-      <p>
-        Sistema de detecção de fraude em tempo quase real baseado em eventos e arquitetura hexagonal.
-      </p>
+Princípios aplicados:
 
-      <div>
-        <span class="tag">Hexagonal Architecture</span>
-        <span class="tag">SQS</span>
-        <span class="tag">Risk Rules</span>
-      </div>
+* **Least Privilege (IAM)**
+* Separação de responsabilidades
+* Uso de roles ao invés de credenciais hardcoded
+* Criptografia em trânsito (HTTPS)
+* Isolamento de rede (VPC + Subnets privadas)
 
-      <p style="margin-top: 12px;">
-        <a href="https://github.com/apduartte/foodtech-fraud-alerts" target="_blank">Repositório</a>
-      </p>
-    </div>
-  </section>
+---
 
-  <section>
-    <h2>Decisões de Arquitetura</h2>
+## 📦 Deployment
 
-    <div class="card">
-      <p>• Arquitetura orientada a eventos para desacoplamento</p>
-      <p>• Hexagonal para isolamento de domínio</p>
-      <p>• SQS + DLQ para resiliência de processamento</p>
-      <p>• Terraform para infraestrutura reprodutível</p>
-      <p>• IAM com princípio de menor privilégio</p>
-    </div>
-  </section>
+### Pré-requisitos
 
-  <section>
-    <h2>Segurança</h2>
+* Terraform
+* AWS CLI configurado
+* Conta AWS com permissões adequadas
 
-    <div class="card">
-      <p>• Autenticação baseada em JWT</p>
-      <p>• Controle de acesso via IAM</p>
-      <p>• Criptografia em trânsito (HTTPS)</p>
-      <p>• Validação de entrada e sanitização de dados</p>
-    </div>
-  </section>
+---
 
-  <section>
-    <h2>Stack</h2>
+### 🔧 Setup
 
-    <div class="card">
-      <p><strong>Cloud:</strong> AWS (SQS, EC2, RDS, S3)</p>
-      <p><strong>Backend:</strong> Java, Spring Boot</p>
-      <p><strong>Infra:</strong> Terraform, Docker</p>
-      <p><strong>Arquitetura:</strong> Event-driven, Microservices</p>
-    </div>
-  </section>
+```bash
+# Inicializar Terraform
+terraform init
 
-</div>
+# Validar
+terraform validate
 
-<footer>
-  © 2026 Ana Duarte — Backend Engineer
-</footer>
+# Planejar
+terraform plan
 
-</body>
-</html>
+# Aplicar
+terraform apply
+```
+
+---
+
+## ⚠️ Configuração Sensível
+
+Arquivos ignorados no versionamento:
+
+```
+terraform.tfvars
+prod.tfvars
+*.tfstate
+.terraform/
+```
+
+Nunca versionar:
+
+* Credenciais AWS
+* Chaves SSH
+* Estados Terraform
+
+---
+
+## 📊 Design Decisions
+
+* Arquitetura orientada a eventos → desacoplamento
+* SQS + DLQ → tolerância a falhas
+* Terraform → reprodutibilidade
+* Modularização → escalabilidade organizacional
+* IAM restritivo → segurança por padrão
+
+---
+
+## 🔄 CI/CD (Evolução futura)
+
+* Pipeline com validação automática de Terraform
+* Deploy automatizado por ambiente
+* Policy as Code (IAM + segurança)
+* Testes de infraestrutura
+
+---
+
+## 🌐 Links
+
+* 🔗 Arquitetura: [http://digifusion.apduartte.com.br/](http://digifusion.apduartte.com.br/)
+* 🔗 Repositório: [https://github.com/apduartte/DigiFusion](https://github.com/apduartte/DigiFusion)
+
+---
+
+## 🧠 Engineering Mindset
+
+Este projeto foi construído com foco em:
+
+* **Production-grade architecture**
+* **Cloud-native design**
+* **Observabilidade e resiliência**
+* **Boas práticas de DevOps**
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 🏁 Status
+
+🚧 Em evolução contínua (foco em maturidade DevOps e automação)
+
+---
