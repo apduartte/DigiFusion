@@ -4,127 +4,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO -->
-  <title>Ana Duarte | Backend Engineer AWS | Sistemas Distribuídos</title>
+  <title>Ana Duarte | Backend Engineer | AWS & Distributed Systems</title>
 
-  <meta name="description" content="Engenheira de Software especializada em AWS, Java, microsserviços e sistemas distribuídos. Experiência em arquitetura orientada a eventos, DevOps e alta escalabilidade.">
+  <meta name="description" content="Engenheira de Software com foco em backend, AWS, sistemas distribuídos e arquitetura orientada a eventos. Experiência com Terraform, microsserviços e sistemas escaláveis.">
 
-  <meta name="keywords" content="AWS, Backend Engineer, Java, Microsserviços, Event-Driven, Sistemas Distribuídos, Terraform, DevOps">
+  <meta name="keywords" content="AWS, Backend Engineer, Java, Spring Boot, Terraform, Distributed Systems, Event-Driven Architecture, DevOps">
 
-  <!-- Open Graph (LinkedIn / compartilhamento) -->
-  <meta property="og:title" content="Ana Duarte | Backend Engineer AWS">
-  <meta property="og:description" content="Especialista em sistemas distribuídos, cloud AWS e arquitetura orientada a eventos.">
+  <meta property="og:title" content="Ana Duarte | Backend Engineer">
+  <meta property="og:description" content="Backend Engineer focada em sistemas distribuídos, AWS e arquitetura orientada a eventos.">
   <meta property="og:type" content="website">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
-      font-family: 'Inter', sans-serif;
-      background: #020617;
-      color: #e2e8f0;
+      margin: 0;
+      font-family: Inter, sans-serif;
+      background: #0b1220;
+      color: #e5e7eb;
       line-height: 1.6;
     }
 
     header {
-      text-align: center;
       padding: 80px 20px;
-      background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      text-align: center;
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
     }
 
-    h1 { font-size: 42px; font-weight: 600; }
-    h2 { color: #38bdf8; margin-bottom: 20px; }
+    h1 {
+      font-size: 40px;
+      font-weight: 600;
+    }
 
-    .highlight { color: #38bdf8; }
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+      color: #60a5fa;
+      margin-top: 10px;
+    }
 
     .subtitle {
-      margin-top: 15px;
-      font-size: 18px;
+      max-width: 720px;
+      margin: 20px auto 0;
       color: #94a3b8;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta {
-      margin-top: 25px;
-    }
-
-    .cta a {
-      padding: 12px 25px;
-      background: #38bdf8;
-      color: #020617;
-      border-radius: 6px;
-      margin: 5px;
-      display: inline-block;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .cta a:hover {
-      opacity: 0.85;
-      transform: scale(1.05);
+      font-size: 15px;
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: auto;
       padding: 50px 20px;
     }
 
+    section {
+      margin-bottom: 40px;
+    }
+
     .card {
-      background: #0f172a;
-      padding: 25px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      border: 1px solid #1e293b;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: #38bdf8;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .stack {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #94a3b8;
-    }
-
-    .impact {
-      color: #22c55e;
-      font-weight: bold;
-      margin-top: 10px;
+      background: #111827;
+      border: 1px solid #1f2937;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 15px;
     }
 
     .tag {
       display: inline-block;
-      background: #1e293b;
-      padding: 5px 10px;
-      border-radius: 6px;
-      margin: 5px 5px 0 0;
       font-size: 12px;
+      padding: 4px 8px;
+      background: #1f2937;
+      margin-right: 6px;
+      border-radius: 4px;
+      color: #cbd5e1;
+    }
+
+    a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     footer {
       text-align: center;
       padding: 30px;
       border-top: 1px solid #1e293b;
-      margin-top: 40px;
-    }
-
-    a {
-      text-decoration: none;
-      color: #38bdf8;
+      color: #94a3b8;
+      font-size: 13px;
     }
   </style>
 </head>
@@ -133,117 +102,99 @@
 
 <header>
   <h1>Ana Duarte</h1>
-  <h2 class="highlight">Backend Engineer | AWS | Distributed Systems</h2>
+  <h2>Backend Engineer | AWS | Distributed Systems</h2>
 
   <p class="subtitle">
-    Especialista em sistemas distribuídos, arquitetura orientada a eventos e cloud AWS.
-    Foco em construção de soluções resilientes, escaláveis e seguras para ambientes críticos.
+    Engenheira de software com foco em backend, sistemas distribuídos e arquitetura orientada a eventos.
+    Experiência com AWS, Terraform e construção de sistemas escaláveis e resilientes.
   </p>
-
-  <div class="cta">
-    <a href="http://digifusion.apduartte.com.br/" target="_blank">Ver Projeto Principal</a>
-    <a href="https://github.com/apduartte" target="_blank">GitHub</a>
-  </div>
 </header>
 
 <div class="container">
 
-  <!-- PROJETO PRINCIPAL -->
-  <h2>Projeto Destaque</h2>
+  <section>
+    <h2>Projeto Principal</h2>
 
-  <div class="card">
-    <h3>DigiFusion-N8N</h3>
+    <div class="card">
+      <strong>DigiFusion-N8N</strong>
+      <p>
+        Arquitetura distribuída baseada em eventos com AWS SQS, EC2 e automação de infraestrutura via Terraform.
+        Foco em desacoplamento, escalabilidade e resiliência.
+      </p>
 
-    <p>
-      Arquitetura cloud distribuída baseada em eventos, com processamento assíncrono via SQS,
-      Auto Scaling e separação por camadas. Projetada com princípios de DevOps, SRE e FinOps.
-    </p>
+      <div>
+        <span class="tag">AWS</span>
+        <span class="tag">Event-Driven</span>
+        <span class="tag">Terraform</span>
+        <span class="tag">Docker</span>
+      </div>
 
-    <div class="tag">Event-Driven</div>
-    <div class="tag">AWS</div>
-    <div class="tag">Terraform</div>
-    <div class="tag">Docker</div>
-
-    <div style="margin-top:15px;">
-      <a href="http://digifusion.apduartte.com.br/" target="_blank">Ver Arquitetura →</a><br>
-      <a href="https://github.com/apduartte/DigiFusion" target="_blank">Ver Código →</a>
+      <p style="margin-top: 12px;">
+        <a href="http://digifusion.apduartte.com.br/" target="_blank">Arquitetura</a> |
+        <a href="https://github.com/apduartte/DigiFusion" target="_blank">Repositório</a>
+      </p>
     </div>
-  </div>
+  </section>
 
-  <!-- PROJETO SECUNDÁRIO -->
-  <h2>Projeto de Engenharia</h2>
+  <section>
+    <h2>Projeto Técnico</h2>
 
-  <div class="card">
-    <h3>Event-Driven Fraud Detection System</h3>
+    <div class="card">
+      <strong>Fraud Detection System</strong>
+      <p>
+        Sistema de detecção de fraude em tempo quase real baseado em eventos e arquitetura hexagonal.
+      </p>
 
-    <p>
-      Sistema distribuído para detecção de fraude em tempo real, utilizando arquitetura hexagonal,
-      processamento assíncrono e regras de análise de risco.
-    </p>
+      <div>
+        <span class="tag">Hexagonal Architecture</span>
+        <span class="tag">SQS</span>
+        <span class="tag">Risk Rules</span>
+      </div>
 
-    <div class="tag">Hexagonal Architecture</div>
-    <div class="tag">Fraud Detection</div>
-    <div class="tag">SQS</div>
+      <p style="margin-top: 12px;">
+        <a href="https://github.com/apduartte/foodtech-fraud-alerts" target="_blank">Repositório</a>
+      </p>
+    </div>
+  </section>
 
-    <a href="https://github.com/apduartte/foodtech-fraud-alerts" target="_blank">
-      Ver Projeto →
-    </a>
-  </div>
+  <section>
+    <h2>Decisões de Arquitetura</h2>
 
-  <!-- DECISÕES DE ENGENHARIA -->
-  <h2>Decisões de Engenharia</h2>
+    <div class="card">
+      <p>• Arquitetura orientada a eventos para desacoplamento</p>
+      <p>• Hexagonal para isolamento de domínio</p>
+      <p>• SQS + DLQ para resiliência de processamento</p>
+      <p>• Terraform para infraestrutura reprodutível</p>
+      <p>• IAM com princípio de menor privilégio</p>
+    </div>
+  </section>
 
-  <div class="card">
-    <p><strong>Event-Driven:</strong> desacoplamento e escalabilidade</p>
-    <p><strong>Hexagonal:</strong> isolamento do domínio</p>
-    <p><strong>SQS + DLQ:</strong> tolerância a falhas</p>
-    <p><strong>Terraform:</strong> infraestrutura como código</p>
-    <p><strong>SSM:</strong> segurança sem SSH</p>
-  </div>
+  <section>
+    <h2>Segurança</h2>
 
-  <!-- SEGURANÇA -->
-  <h2>Cyber Security</h2>
+    <div class="card">
+      <p>• Autenticação baseada em JWT</p>
+      <p>• Controle de acesso via IAM</p>
+      <p>• Criptografia em trânsito (HTTPS)</p>
+      <p>• Validação de entrada e sanitização de dados</p>
+    </div>
+  </section>
 
-  <div class="card">
-    <p>✔ Autenticação via JWT</p>
-    <p>✔ IAM (princípio do menor privilégio)</p>
-    <p>✔ HTTPS e criptografia</p>
-    <p>✔ Validação de entrada</p>
-  </div>
+  <section>
+    <h2>Stack</h2>
 
-  <!-- DATA -->
-  <h2>Data & Analytics</h2>
-
-  <div class="card">
-    <p>✔ Processamento de eventos em tempo real</p>
-    <p>✔ Análise de fraude baseada em regras</p>
-    <p>✔ Preparado para evolução com Machine Learning</p>
-  </div>
-
-  <!-- DEVOPS -->
-  <h2>DevOps & FinOps</h2>
-
-  <div class="card">
-    <p>✔ CI/CD automatizado</p>
-    <p>✔ Infraestrutura com Terraform</p>
-    <p>✔ Otimização de custos com arquitetura desacoplada</p>
-    <p>✔ Monitoramento com CloudWatch</p>
-  </div>
-
-  <!-- STACK -->
-  <h2>Stack Tecnológica</h2>
-
-  <div class="card">
-    <p><strong>Cloud:</strong> AWS (SQS, EC2, RDS, S3)</p>
-    <p><strong>Backend:</strong> Java, Spring Boot</p>
-    <p><strong>Infra:</strong> Terraform, Docker</p>
-    <p><strong>Arquitetura:</strong> Microsserviços, Event-driven</p>
-  </div>
+    <div class="card">
+      <p><strong>Cloud:</strong> AWS (SQS, EC2, RDS, S3)</p>
+      <p><strong>Backend:</strong> Java, Spring Boot</p>
+      <p><strong>Infra:</strong> Terraform, Docker</p>
+      <p><strong>Arquitetura:</strong> Event-driven, Microservices</p>
+    </div>
+  </section>
 
 </div>
 
 <footer>
-  <p>© 2026 Ana Duarte | Backend Engineer AWS</p>
+  © 2026 Ana Duarte — Backend Engineer
 </footer>
 
 </body>
