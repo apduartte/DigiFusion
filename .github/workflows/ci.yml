@@ -15,36 +15,33 @@ jobs:
         working-directory: bia/infra/terraform
 
     steps:
-      # 1️⃣ Checkout
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # 3️⃣ Terraform Init
       - name: Terraform Init
         run: terraform init -input=false
 
-      # 4️⃣ Terraform Fmt
       - name: Terraform Fmt
         run: terraform fmt -check -diff
 
-      # 5️⃣ Terraform Validate
       - name: Terraform Validate
         run: terraform validate
-      - name: Check tfvars
+
+      - name: Check files
         run: ls -la
 
-      # 6️⃣ Check tfvars (debug opcional, mas útil)
-      - name: Check tfvars
-        run: ls -la
-
-      # 7️⃣ Terraform Plan
       - name: Terraform Plan
         env:
-            TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
+          TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
+          TF_VAR_environment: dev
+          TF_VAR_vpc_cidr: 10.0.0.0/16
+          TF_VAR_public_subnet_cidrs: '["10.0.1.0/24","10.0.2.0/24"]'
+          TF_VAR_private_subnet_cidrs: '["10.0.10.0/24","10.0.11.0/24"]'
+          TF_VAR_domain_name: example.com
+          TF_VAR_ami_id: ami-1234567890
         run: terraform plan -input=false -no-color
 
   deploy:
