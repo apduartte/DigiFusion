@@ -1,4 +1,5 @@
 name: CI Terraform
+
 on:
   pull_request:
   push:
@@ -11,24 +12,34 @@ jobs:
 
     defaults:
       run:
-        working-directory: bia/infra/terraform/terraform.tfvars
+        working-directory: bia/infra/terraform
 
     steps:
+      # 1️⃣ Checkout
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      # 3️⃣ Terraform Init
       - name: Terraform Init
         run: terraform init -input=false
 
+      # 4️⃣ Terraform Fmt
       - name: Terraform Fmt
         run: terraform fmt -check -diff
 
+      # 5️⃣ Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
+      # 6️⃣ Check tfvars (debug opcional, mas útil)
+      - name: Check tfvars
+        run: ls -la
+
+      # 7️⃣ Terraform Plan
       - name: Terraform Plan
         env:
           TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
