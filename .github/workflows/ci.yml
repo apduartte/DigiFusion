@@ -33,6 +33,8 @@ jobs:
       # 5️⃣ Terraform Validate
       - name: Terraform Validate
         run: terraform validate
+      - name: Check tfvars
+        run: ls -la
 
       # 6️⃣ Terraform Plan (CORRIGIDO)
       - name: Terraform Plan
