@@ -37,7 +37,6 @@ jobs:
       # 6️⃣ Terraform Plan (CORRIGIDO)
       - name: Terraform Plan
         env:
-          TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
+        TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}              
         run: |
-          ls -la
-          terraform plan -input=false -no-color -var-file="terraform.tfvars"
+        terraform plan -input=false -no-color -var-file=terraform.tfvars
