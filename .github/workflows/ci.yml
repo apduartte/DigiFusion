@@ -34,6 +34,8 @@ jobs:
       # 5️⃣ Terraform Validate
       - name: Terraform Validate
         run: terraform validate
+      - name: Check tfvars
+        run: ls -la
 
       # 6️⃣ Check tfvars (debug opcional, mas útil)
       - name: Check tfvars
