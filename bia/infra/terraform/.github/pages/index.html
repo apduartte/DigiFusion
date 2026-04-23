@@ -1,0 +1,163 @@
+
+
+🚀 DigiFusion-N8N
+
+Arquitetura evolutiva para automação de workflows com N8N na AWS
+
+https://img.shields.io/badge/AWS-Cloud-%23FF9900?style=for-the-badge&logo=amazonaws&logoColor=whitehttps://img.shields.io/badge/Terraform-IaC-%237B42BC?style=for-the-badge&logo=terraformhttps://img.shields.io/badge/Docker-Container-%230db7ed?style=for-the-badge&logo=docker
+
+📌 Objetivo
+
+O DigiFusion-N8N demonstra a construção de uma arquitetura moderna na AWS, evoluindo de uma prova de conceito (POC) até um ambiente produtivo escalável e resiliente.
+
+A solução aplica práticas consolidadas de:
+
+Cloud Computing
+
+DevOps
+
+Segurança
+
+FinOps
+
+SRE (Site Reliability Engineering)
+
+🧠 Modelo Arquitetural
+
+Nível
+
+Descrição
+
+POC
+
+Baixo custo, implementação rápida
+
+Alta Disponibilidade (HA)
+
+Redundância e estabilidade
+
+Produção Escalável
+
+Performance, resiliência e escalabilidade
+
+🏗️ Arquitetura em Camadas
+
+Entrada (Edge) → DNS, WAF, Load Balancer, ACM
+
+Aplicação → N8N, Workers, Auto Scaling
+
+Dados → RDS PostgreSQL, S3 (histórico/backups)
+
+Acesso → AWS Systems Manager (SSM), sem SSH
+
+Identidade (IAM) → Roles, Policies, Least Privilege
+
+Observabilidade → Logs, métricas, alarmes
+
+FinOps (Transversal) → Monitoramento e otimização de custos
+
+🔄 Fluxo da Aplicação
+
+Usuário → Route 53 → WAF → ALB → N8N → Fila → Workers → RDS
+
+🔐 Segurança
+
+HTTPS com ACM
+
+WAF contra ataques HTTP
+
+IAM com princípio do menor privilégio
+
+Administração via SSM (SSH desabilitado)
+
+Criptografia em trânsito (TLS) e em repouso
+
+⚙️ DevOps
+
+Infraestrutura como código (Terraform)
+
+Pipeline CI/CD automatizado
+
+Execução remota via SSM
+
+Automação de deploy, backup e health checks
+
+📈 SRE (Confiabilidade)
+
+SLIs: latência, taxa de erro, disponibilidade
+
+SLOs: 99.9% de disponibilidade, latência < 300ms
+
+Estratégias: Multi-AZ, Auto Scaling, Load Balancer, tolerância a falhas
+
+💰 FinOps
+
+Drivers de custo: execução N8N, CPU EC2, RDS, logs
+
+Estratégias: ambientes isolados (dev/staging/prod), uso sob demanda, rightsizing, desligamento de ambientes não produtivos
+
+🧪 Engenharia de Dados
+
+Fluxo:
+
+Webhook → N8N → Fila → Worker → Banco
+
+Evolução planejada:
+
+Armazenamento histórico em S3
+
+Separação entre dados operacionais e analíticos
+
+🚀 Ambientes
+
+Ambiente
+
+Arquitetura
+
+Dev
+
+POC
+
+Staging
+
+Alta Disponibilidade
+
+Produção
+
+Escalável
+
+🎯 Diferenciais
+
+Arquitetura evolutiva e escalável
+
+Segurança sem exposição via SSH
+
+Automação completa com Terraform
+
+Governança de custos (FinOps)
+
+Alta confiabilidade (SRE)
+
+Separação clara por camadas
+
+🧭 Conclusão
+
+O DigiFusion-N8N demonstra a implementação de uma arquitetura moderna na nuvem, com foco em:
+
+Eficiência operacional
+
+Segurança
+
+Escalabilidade
+
+Controle de custos
+
+Resiliência
+
+📌 Frase do Projeto
+
+"Do simples ao escalável: evolução guiada por automação, segurança e eficiência."
+
+✨ Essa versão está pronta para ser publicada no GitHub Pages e usada como portfólio técnico.
+
+Quer que eu prepare também o commit sênior pronto para registrar essa versão no Git, alinhado ao padrão de Conventional Commits que definimos?

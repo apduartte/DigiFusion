@@ -1,19 +1,11 @@
-# Logs
-*.log
-
 # Terraform
 .terraform/
 .terraform.lock.hcl
 *.tfstate
 *.tfstate.*
-crash.log
+*.tfvars
 tfplan*
 *.backup
-
-# Ignore arquivos sensíveis
-*.auto.tfvars
-terraform.tfvars
-prod.tfvars
 
 # OS
 .DS_Store
@@ -24,3 +16,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Logs
+*.log
