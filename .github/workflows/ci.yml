@@ -11,7 +11,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: bia/infra/terraform
+        working-directory: bia/infra/terraform/terraform.tfvars
 
     steps:
       - name: Checkout
