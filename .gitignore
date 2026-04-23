@@ -1,59 +1,26 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-
-
-
-#React node_modules
-/client/node_modules
-
-#React production project
-/client/build
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Logs
+*.log
 
 # Terraform
 .terraform/
+.terraform.lock.hcl
 *.tfstate
-*.tfstate.backup
-*.tfvars
-*.tfvars.json
+*.tfstate.*
 crash.log
+tfplan*
+*.backup
 
-# Local environment files
-.env
-.env.local
-.env.*.local
+# Ignore arquivos sensíveis
+*.auto.tfvars
+terraform.tfvars
+prod.tfvars
 
-# Node / React
-/node_modules
-/client/node_modules
-/client/build
-/.pnp
-.pnp.js
-/coverage
-/build
-
-# Misc
+# OS
 .DS_Store
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
