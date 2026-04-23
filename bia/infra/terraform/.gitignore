@@ -3,12 +3,9 @@
 
 # Terraform
 .terraform/
-.terraform.lock.hcl
 *.tfstate
 *.tfstate.*
-crash.log
-tfplan*
-*.backup
+*.tfplan
 
 # Ignore arquivos sensíveis
 *.auto.tfvars

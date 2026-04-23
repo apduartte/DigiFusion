@@ -44,8 +44,8 @@ jobs:
       # 7️⃣ Terraform Plan
       - name: Terraform Plan
         env:
-          TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
-        run: terraform plan -input=false -no-color -var-file="terraform.tfvars"
+            TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
+        run: terraform plan -input=false -no-color
 
   deploy:
     needs: validate
