@@ -33,12 +33,14 @@ jobs:
       # 5️⃣ Terraform Validate
       - name: Terraform Validate
         run: terraform validate
+
+      # 6️⃣ Verifica tfvars
       - name: Check tfvars
         run: ls -la
 
-      # 6️⃣ Terraform Plan (CORRIGIDO)
+      # 7️⃣ Terraform Plan
       - name: Terraform Plan
         env:
-        TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}              
+          TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
         run: |
-        terraform plan -input=false -no-color -var-file=terraform.tfvars
+          terraform plan -input=false -no-color -var-file=terraform.tfvars
