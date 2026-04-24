@@ -15,19 +15,30 @@ jobs:
 
     steps:
       # 1️⃣ Clona o repositório
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       # 2️⃣ Setup Terraform
-      - uses: hashicorp/setup-terraform@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
-      # 3️⃣ Inicializa Terraform
-      - run: terraform init -input=false
+      # 3️⃣ Terraform Init
+      - name: Terraform Init
+        run: terraform init -input=false
 
-      # 4️⃣ Formatação do código Terraform
-      - run: terraform fmt -check -diff
+      # 4️⃣ Terraform Format Check
+      - name: Terraform Fmt
+        run: terraform fmt -check -diff
 
-      # 5️⃣ Validação da configuração Terraform
-      - run: terraform validate
+      # 5️⃣ Terraform Validate
+      - name: Terraform Validate
+        run: terraform validate
+      - name: Check tfvars
+        run: ls -la
 
-      # 6️⃣ Gera plano de execução
-      - run: terraform plan -no-color
+      # 6️⃣ Terraform Plan (CORRIGIDO)
+      - name: Terraform Plan
+        env:
+        TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}              
+        run: |
+        terraform plan -input=false -no-color -var-file=terraform.tfvars
