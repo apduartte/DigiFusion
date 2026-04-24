@@ -15,7 +15,6 @@ module "security" {
   vpc_id = module.vpc.vpc_id
   tags   = var.tags
 }
-
 module "n8n_ec2" {
   source = "./modules/ec2"
 
@@ -24,9 +23,9 @@ module "n8n_ec2" {
   subnet_id          = module.vpc.public_subnets[0]
   security_group_ids = [module.security.ec2_sg_id]
 
-  key_name                  = var.key_name
-  ssm_instance_profile_name = var.ssm_instance_profile_name
-  tags                      = var.tags
+  ssm_instance_profile_name = "ec2-ssm-role"
+
+  tags = var.tags
 }
 
 module "acm" {
