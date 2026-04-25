@@ -1,0 +1,51 @@
+Aqui está um resumo estruturado em **Português do Brasil** do conteúdo da página DigiFusion/n8n-aws-ec2, pronto para você copiar e colar em um arquivo Word:
+
+---
+
+# DigiFusion – CI/CD & Terraform
+
+## 🌟 Portfólio Profissional com Padrões FAANG
+
+### 🌐 Status do Projeto
+- Pipeline CI/CD com **Terraform + AWS + GitHub Actions**  
+- Segurança via **OIDC** (sem credenciais hardcoded)  
+- Infraestrutura como código (**IaC**)  
+
+### 🚀 Visão Geral da Arquitetura
+Fluxo simplificado:
+1. **Pull Request** → CI  
+2. **Validate** → Merge  
+3. **CD** → AWS OIDC  
+4. **Terraform Apply**
+
+### 📂 Detalhamento Técnico
+- **Pipeline CI**: Validação automática de código e infraestrutura  
+- **Pipeline CD**: Deploy contínuo com integração ao AWS  
+- **Segurança (OIDC)**: Autenticação sem necessidade de credenciais fixas  
+- **Infraestrutura Terraform**: Provisionamento automatizado e versionado  
+
+### 📌 Skills Demonstradas
+- CI/CD moderno  
+- Infraestrutura como código  
+- Segurança avançada com OIDC  
+- Automação de deploy em nuvem  
+
+### 📈 Roadmap
+- Expansão futura do projeto  
+- Melhorias contínuas de automação  
+
+### ▶️ Execução Local
+```bash
+git clone https://github.com/apduartte/DigiFusion.git
+cd DigiFusion/bia/infra/terraform
+terraform init
+terraform validate
+terraform plan
+terraform apply -auto-approve
+```
+
+⚠️ **Observação**: Configure corretamente o ambiente `dev` e os *secrets* da AWS no GitHub.
+
+---
+
+Esse conteúdo já está pronto para ser colado em um documento Word. Você gostaria que eu organizasse em um **modelo de relatório profissional** (com capa, sumário e seções formatadas) para deixar o arquivo mais apresentável?

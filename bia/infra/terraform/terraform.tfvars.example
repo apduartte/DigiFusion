@@ -1,0 +1,10 @@
+region                    = "us-east-1"
+environment               = "dev"
+vpc_id                    = "vpc-0815a7ce7cf5c0f38"
+ami_id                    = "ami-02dfbd4ff395f2a1b"
+key_name                  = "" # vazio = sem SSH (SSM)
+ssm_instance_profile_name = "role-acesso-ssm-digifusion"
+subnet_id                 = "subnet-04c89b4ce3dcf04f5"
+vpc_security_group_ids    = []                      # ou ["sg-..."] se já tiver SGs
+n8n_password              = "REPLACE_ME" # marque como sensitive
+instance_type             = "t3.micro"

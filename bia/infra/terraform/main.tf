@@ -1,12 +1,11 @@
-
 module "vpc" {
   source = "./modules/vpc"
 
-  region               = var.region
-  environment          = var.environment
   vpc_cidr             = var.vpc_cidr
   public_subnet_cidrs  = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
+  environment          = var.environment
+  domain_name          = var.domain_name
   tags                 = var.tags
 }
 
@@ -14,29 +13,24 @@ module "security" {
   source = "./modules/security"
 
   vpc_id = module.vpc.vpc_id
+  tags   = var.tags
+}
+module "n8n_ec2" {
+  source = "./modules/ec2"
+
+  ami_id             = var.ami_id
+  instance_type      = var.instance_type
+  subnet_id          = module.vpc.public_subnets[0]
+  security_group_ids = [module.security.ec2_sg_id]
+
+  ssm_instance_profile_name = "ec2-ssm-role"
+
+  tags = var.tags
 }
 
-# Comentar RDS e EC2 por enquanto
-# module "rds" {
-#   source = "./modules/rds"
-#   
-#   vpc_id             = module.vpc.vpc_id
-#   private_subnet_ids = module.vpc.private_subnets
-#   security_group_id  = module.security.rds_sg_id
-#   environment        = var.environment
-#   tags               = var.tags
-# }
+module "acm" {
+  source = "./modules/acm"
 
-# module "ec2" {
-#   source = "./modules/ec2"
-#   
-#   subnet_id         = module.vpc.public_subnets[0]
-#   security_group_id = module.security.ec2_sg_id
-#   ami_id            = var.ami
-#   instance_type     = "t3.micro"
-#   user_data         = ""
-#   instance_profile  = ""
-#   db_host           = ""
-#   db_password       = "changeme123!"
-#   tags              = var.tags
-# }
+  domain_name = var.domain_name
+  tags        = var.tags
+}

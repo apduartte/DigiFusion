@@ -1,45 +1,89 @@
 variable "region" {
-  description = "Região AWS"
+  description = "AWS region"
   type        = string
   default     = "us-east-1"
 }
 
 variable "environment" {
-  description = "Nome do ambiente"
   type        = string
-  default     = "dev"
+  description = "Environment name (dev/staging/prod)"
 }
 
+# -------------------------
+# NETWORK (VPC MODULE)
+# -------------------------
 variable "vpc_cidr" {
-  description = "CIDR da VPC"
   type        = string
-  default     = "10.0.0.0/16"
+  description = "CIDR block for VPC"
 }
 
 variable "public_subnet_cidrs" {
-  description = "Lista de CIDRs para subnets públicas"
   type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+  description = "List of public subnet CIDRs"
 }
 
 variable "private_subnet_cidrs" {
-  description = "Lista de CIDRs para subnets privadas"
   type        = list(string)
-  default     = ["10.0.11.0/24", "10.0.12.0/24"]
+  description = "List of private subnet CIDRs"
 }
 
-variable "ami" {
-  description = "AMI ID para instâncias EC2"
+variable "domain_name" {
   type        = string
-  default     = "ami-0c02fb55956c7d316"
+  description = "Base domain used for ACM certificate and DNS (e.g. example.com)"
 }
 
+# -------------------------
+# COMPUTE (EC2 MODULE)
+# -------------------------
+variable "ami_id" {
+  type        = string
+  description = "AMI ID for EC2 instance"
+}
+
+variable "instance_type" {
+  type        = string
+  description = "EC2 instance type"
+  default     = "t3.micro"
+}
+
+variable "key_name" {
+  type        = string
+  description = "SSH key name for EC2 access (optional if using SSM)"
+  default     = null
+}
+
+variable "ssm_instance_profile_name" {
+  type        = string
+  description = "IAM instance profile name for SSM access (recommended instead of SSH)"
+  default     = null
+}
+
+# -------------------------
+# GLOBAL TAGS
+# -------------------------
 variable "tags" {
-  description = "Tags padrão"
   type        = map(string)
-  default = {
-    Owner       = "Ana"
-    Environment = "dev"
-    Project     = "infra"
+  description = "Common tags applied to all resources"
+  default     = {}
+}
+
+# -------------------------
+# ACCESS (EC2 ACCESS CONTROL)
+# -------------------------
+
+variable "key_name" {
+  description = "SSH key pair name (optional - avoid using in favor of SSM)"
+  type        = string
+  default     = null
+}
+
+variable "ssm_instance_profile_name" {
+  description = "IAM instance profile name for SSM access"
+  type        = string
+  default     = "ec2-ssm-role"
+
+  validation {
+    condition     = length(var.ssm_instance_profile_name) > 0
+    error_message = "SSM instance profile must be defined."
   }
 }

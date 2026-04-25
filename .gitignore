@@ -26,3 +26,8 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+tfplan
+*.tfvars
+*.tfvars.json
+FETCH_HEAD
