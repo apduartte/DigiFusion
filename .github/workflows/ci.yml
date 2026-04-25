@@ -10,31 +10,44 @@ jobs:
   validate:
     runs-on: ubuntu-latest
 
+    env:
+      TF_VAR_environment: ${{ startsWith(github.ref, 'refs/heads/master') && 'prod' || 'dev' }}
+      AWS_DEFAULT_REGION: us-east-1
+
     defaults:
       run:
         working-directory: bia/infra/terraform
+  
+    env:
+      AWS_DEFAULT_REGION: us-east-1
 
     steps:
+      # 1️⃣ Checkout
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      # 3️⃣ Terraform Init
       - name: Terraform Init
         run: terraform init -input=false
 
+      # 4️⃣ Terraform Format
       - name: Terraform Fmt
         run: terraform fmt -check -diff
 
+      # 5️⃣ Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
-      - name: Check files
-        run: ls -la
-
+      # 6️⃣ Terraform Plan
       - name: Terraform Plan
         env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
           TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
           TF_VAR_environment: dev
           TF_VAR_vpc_cidr: 10.0.0.0/16
@@ -43,11 +56,3 @@ jobs:
           TF_VAR_domain_name: example.com
           TF_VAR_ami_id: ami-1234567890
         run: terraform plan -input=false -no-color
-
-  deploy:
-    needs: validate
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy (placeholder)
-        run: echo "Deploy step here"

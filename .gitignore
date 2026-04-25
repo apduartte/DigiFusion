@@ -28,3 +28,4 @@ Thumbs.db
 tfplan
 *.tfvars
 *.tfvars.json
+FETCH_HEAD
