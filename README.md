@@ -1,9 +1,3 @@
-Boa — aqui vale um ajuste direto: README de alto nível DevOps **não deve ser HTML**. Em engenharia sênior, o padrão esperado no GitHub é **Markdown limpo, escaneável e orientado a arquitetura + operação**.
-
-Segue uma versão **nível sênior real (portfólio + engenharia + operação)**:
-
----
-
 # 🚀 DigiFusion Platform
 
 **Event-Driven Architecture on AWS | Terraform | Distributed Systems**
