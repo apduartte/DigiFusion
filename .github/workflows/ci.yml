@@ -1,9 +1,11 @@
 name: CI Terraform
 
 on:
+  push:
+    branches:
+      - master
+      - feature/**
   pull_request:
-    paths:
-      - 'bia/infra/terraform/**'
 
 permissions:
   id-token: write
