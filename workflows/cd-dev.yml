@@ -1,0 +1,44 @@
+name: CD DEV
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'bia/infra/terraform/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: dev
+
+    defaults:
+      run:
+        working-directory: bia/infra/terraform
+
+    env:
+      TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+
+      # 🚀 Cache (CRÍTICO pra performance)
+      - name: Cache Terraform
+        uses: actions/cache@v3
+        with:
+          path: ~/.terraform.d/plugin-cache
+          key: terraform-${{ runner.os }}-${{ hashFiles('**/.terraform.lock.hcl') }}
+
+      - name: AWS OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - run: terraform init -input=false
+
+      # 👀 opcional, mas recomendado
+      - run: terraform plan -input=false -out=tfplan
+
+      - run: terraform apply -auto-approve -input=false tfplan
