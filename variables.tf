@@ -66,24 +66,3 @@ variable "tags" {
   description = "Common tags applied to all resources"
   default     = {}
 }
-
-# -------------------------
-# ACCESS (EC2 ACCESS CONTROL)
-# -------------------------
-
-variable "key_name" {
-  description = "SSH key pair name (optional - avoid using in favor of SSM)"
-  type        = string
-  default     = null
-}
-
-variable "ssm_instance_profile_name" {
-  description = "IAM instance profile name for SSM access"
-  type        = string
-  default     = "ec2-ssm-role"
-
-  validation {
-    condition     = length(var.ssm_instance_profile_name) > 0
-    error_message = "SSM instance profile must be defined."
-  }
-}
