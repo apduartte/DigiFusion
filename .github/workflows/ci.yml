@@ -19,9 +19,6 @@ jobs:
     defaults:
       run:
         working-directory: bia/infra/terraform
-  
-    env:
-      AWS_DEFAULT_REGION: us-east-1
 
     steps:
       # 1️⃣ Checkout
