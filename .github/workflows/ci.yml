@@ -54,12 +54,16 @@ jobs:
         run: ls -la
 
       # 7️⃣ Terraform Plan
+            # 7️⃣ Configure AWS credentials via OIDC
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::768150687367:role/github-actions-role-dev
+          aws-region: us-east-1
+
+      # 8️⃣ Terraform Plan
       - name: Terraform Plan
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: us-east-1
-
           TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
           TF_VAR_environment: ${{ github.ref == 'refs/heads/master' && 'prod' || 'dev' }}
           TF_VAR_vpc_cidr: 10.0.0.0/16
@@ -67,5 +71,4 @@ jobs:
           TF_VAR_private_subnet_cidrs: '["10.0.10.0/24","10.0.11.0/24"]'
           TF_VAR_domain_name: example.com
           TF_VAR_ami_id: ami-1234567890
-
         run: terraform plan -input=false -no-color
