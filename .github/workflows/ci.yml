@@ -1,20 +1,28 @@
+  GNU nano 8.2                                                                                 ci.yml                                                                                 Modified
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 name: CI Terraform
 
 on:
-  push:
-    branches:
-      - master
-      - feature/**
   pull_request:
+    paths:
+      - 'bia/infra/terraform/**'
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-
-    env:
-      TF_VAR_environment: ${{ startsWith(github.ref, 'refs/heads/master') && 'prod' || 'dev' }}
-      AWS_DEFAULT_REGION: us-east-1
 
     defaults:
       run:
@@ -41,17 +49,23 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-      # 6️⃣ Terraform Plan
+      # 6️⃣ Verificar arquivos
+      - name: Check tfvars
+        run: ls -la
+
+      # 7️⃣ Terraform Plan
       - name: Terraform Plan
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
 
           TF_VAR_n8n_password: ${{ secrets.N8N_PASSWORD }}
-          TF_VAR_environment: dev
+          TF_VAR_environment: ${{ github.ref == 'refs/heads/master' && 'prod' || 'dev' }}
           TF_VAR_vpc_cidr: 10.0.0.0/16
           TF_VAR_public_subnet_cidrs: '["10.0.1.0/24","10.0.2.0/24"]'
           TF_VAR_private_subnet_cidrs: '["10.0.10.0/24","10.0.11.0/24"]'
           TF_VAR_domain_name: example.com
           TF_VAR_ami_id: ami-1234567890
+
         run: terraform plan -input=false -no-color
